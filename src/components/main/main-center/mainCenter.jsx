@@ -6,9 +6,7 @@ function MainCenter() {
   return (
     <div className="main__centerblock centerblock">
       <div className="centerblock__search search">
-        <svg className="search__svg">
-          <Search />
-        </svg>
+        <Search className="search__svg" />
         <input
           className="search__text"
           type="search"
@@ -31,9 +29,7 @@ function MainCenter() {
           <div className="playlist-title__col col02">ИСПОЛНИТЕЛЬ</div>
           <div className="playlist-title__col col03">АЛЬБОМ</div>
           <div className="playlist-title__col col04">
-            <svg className="playlist-title__svg" alt="time">
-              <Watch />
-            </svg>
+            <Watch className="playlist-title__svg" alt="time" />
           </div>
         </div>
         <MainCenterPlaylist />

@@ -1,13 +1,13 @@
-import BarPlayerControls from "./barPlayerContentControls/barPlayerControls"
-import BarPlayerContentTrack from "./barPlayerContentTrack/barPlayerContentTrack"
+import PlayerControls from "./barPlayerContentControls/barPlayerControls"
+import PlayerContentTrack from "./barPlayerContentTrack/barPlayerContentTrack"
 
-function BarPlayerContent() {
+function PlayerContent() {
   return (
     <>
-      <BarPlayerControls />
-      <BarPlayerContentTrack />
+      <PlayerControls />
+      <PlayerContentTrack />
     </>
   )
 }
 
-export default BarPlayerContent
+export default PlayerContent

@@ -1,13 +1,11 @@
-import { ReactComponent as Volume } from '../../../../img/icon/volume.svg'
+import { ReactComponent as Volume } from "../../../../img/icon/volume.svg"
 
-function BarPlayerVolume() {
+function PlayerVolume() {
   return (
     <div className="bar__volume-block volume">
       <div className="volume__content">
         <div className="volume__image">
-          <svg className="volume__svg" alt="volume">
-            <Volume/>
-          </svg>
+          <Volume className="volume__svg" alt="volume" />
         </div>
         <div className="volume__progress _btn">
           <input
@@ -21,4 +19,4 @@ function BarPlayerVolume() {
   )
 }
 
-export default BarPlayerVolume
+export default PlayerVolume

@@ -1,39 +1,29 @@
-import {ReactComponent as Play} from '../../../../../img/icon/play.svg'
-import {ReactComponent as Prev} from '../../../../../img/icon/prev.svg'
-import {ReactComponent as Next} from '../../../../../img/icon/next.svg'
-import {ReactComponent as Repeat} from '../../../../../img/icon/repeat.svg'
-import {ReactComponent as Shuffle} from '../../../../../img/icon/shuffle.svg'
+import { ReactComponent as Play } from "../../../../../img/icon/play.svg"
+import { ReactComponent as Prev } from "../../../../../img/icon/prev.svg"
+import { ReactComponent as Next } from "../../../../../img/icon/next.svg"
+import { ReactComponent as Repeat } from "../../../../../img/icon/repeat.svg"
+import { ReactComponent as Shuffle } from "../../../../../img/icon/shuffle.svg"
 
-function BarPlayerControls() {
+function PlayerControls() {
   return (
     <div className="player__controls">
       <div className="player__btn-prev">
-        <svg className="player__btn-prev-svg" alt="prev">
-          <Prev/>
-        </svg>
+        <Prev className="player__btn-prev-svg" alt="prev" />
       </div>
       <div className="player__btn-play _btn">
-        <svg className="player__btn-play-svg" alt="play">
-          <Play/>
-        </svg>
+        <Play className="player__btn-play-svg" alt="play" />
       </div>
       <div className="player__btn-next">
-        <svg className="player__btn-next-svg" alt="next">
-          <Next/>
-        </svg>
+        <Next className="player__btn-next-svg" alt="next" />
       </div>
       <div className="player__btn-repeat _btn-icon">
-        <svg className="player__btn-repeat-svg" alt="repeat">
-          <Repeat/>
-        </svg>
+        <Repeat className="player__btn-repeat-svg" alt="repeat" />
       </div>
       <div className="player__btn-shuffle _btn-icon">
-        <svg className="player__btn-shuffle-svg" alt="shuffle">
-          <Shuffle/>
-        </svg>
+        <Shuffle className="player__btn-shuffle-svg" alt="shuffle" />
       </div>
     </div>
   )
 }
 
-export default BarPlayerControls
+export default PlayerControls

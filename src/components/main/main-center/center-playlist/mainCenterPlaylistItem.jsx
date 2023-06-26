@@ -8,9 +8,7 @@ function MainCenterPlaylistItem() {
         <div className="playlist__track track">
           <div className="track__title">
             <div className="track__title-image">
-              <svg className="track__title-svg" alt="music">
-                <Note />
-              </svg>
+              <Note className="track__title-svg" alt="music" />
             </div>
             <div className="track__title-text">
               <a className="track__title-link" href="http://">
@@ -29,9 +27,7 @@ function MainCenterPlaylistItem() {
             </a>
           </div>
           <div className="track__time">
-            <svg className="track__time-svg" alt="time">
-              <Like />
-            </svg>
+            <Like className="track__time-svg" alt="time"/>
             <span className="track__time-text">4:44</span>
           </div>
         </div>
@@ -41,9 +37,7 @@ function MainCenterPlaylistItem() {
         <div className="playlist__track track">
           <div className="track__title">
             <div className="track__title-image">
-              <svg className="track__title-svg" alt="music">
-                <Note />
-              </svg>
+              <Note className="track__title-svg" alt="music"/>
             </div>
             <div className="track__title-text">
               <a className="track__title-link" href="http://">
@@ -62,9 +56,7 @@ function MainCenterPlaylistItem() {
             </a>
           </div>
           <div className="track__time">
-            <svg className="track__time-svg" alt="time">
-              <Like />
-            </svg>
+            <Like className="track__time-svg" alt="time"/>
             <span className="track__time-text">2:22</span>
           </div>
         </div>
@@ -74,9 +66,7 @@ function MainCenterPlaylistItem() {
         <div className="playlist__track track">
           <div className="track__title">
             <div className="track__title-image">
-              <svg className="track__title-svg" alt="music">
-                <Note />
-              </svg>
+              <Note className="track__title-svg" alt="music"/>
             </div>
             <div className="track__title-text">
               <a className="track__title-link" href="http://">
@@ -95,9 +85,7 @@ function MainCenterPlaylistItem() {
             </a>
           </div>
           <div className="track__time">
-            <svg className="track__time-svg" alt="time">
-              <Like />
-            </svg>
+            <Like className="track__time-svg" alt="time"/>
             <span className="track__time-text">2:22</span>
           </div>
         </div>
@@ -107,9 +95,7 @@ function MainCenterPlaylistItem() {
         <div className="playlist__track track">
           <div className="track__title">
             <div className="track__title-image">
-              <svg className="track__title-svg" alt="music">
-                <Note />
-              </svg>
+              <Note className="track__title-svg" alt="music"/>
             </div>
             <div className="track__title-text">
               <a className="track__title-link" href="http://">
@@ -128,9 +114,7 @@ function MainCenterPlaylistItem() {
             </a>
           </div>
           <div className="track__time">
-            <svg className="track__time-svg" alt="time">
-              <Like />
-            </svg>
+            <Like className="track__time-svg" alt="time"/>
             <span className="track__time-text">4:12</span>
           </div>
         </div>
@@ -140,9 +124,7 @@ function MainCenterPlaylistItem() {
         <div className="playlist__track track">
           <div className="track__title">
             <div className="track__title-image">
-              <svg className="track__title-svg" alt="music">
-                <Note />
-              </svg>
+              <Note className="track__title-svg" alt="music"/>
             </div>
             <div className="track__title-text">
               <a className="track__title-link" href="http://">
@@ -161,9 +143,7 @@ function MainCenterPlaylistItem() {
             </a>
           </div>
           <div className="track__time">
-            <svg className="track__time-svg" alt="time">
-              <Like />
-            </svg>
+            <Like className="track__time-svg" alt="time"/>
             <span className="track__time-text">2:54</span>
           </div>
         </div>
@@ -173,9 +153,7 @@ function MainCenterPlaylistItem() {
         <div className="playlist__track track">
           <div className="track__title">
             <div className="track__title-image">
-              <svg className="track__title-svg" alt="music">
-                <Note />
-              </svg>
+              <Note className="track__title-svg" alt="music"/>
             </div>
             <div className="track__title-text">
               <a className="track__title-link" href="http://">
@@ -195,9 +173,7 @@ function MainCenterPlaylistItem() {
             </a>
           </div>
           <div className="track__time">
-            <svg className="track__time-svg" alt="time">
-              <Like />
-            </svg>
+            <Like className="track__time-svg" alt="time"/>
             <span className="track__time-text">5:20</span>
           </div>
         </div>
@@ -207,9 +183,7 @@ function MainCenterPlaylistItem() {
         <div className="playlist__track track">
           <div className="track__title">
             <div className="track__title-image">
-              <svg className="track__title-svg" alt="music">
-                <Note />
-              </svg>
+              <Note className="track__title-svg" alt="music"/>
             </div>
             <div className="track__title-text">
               <a className="track__title-link" href="http://">
@@ -229,9 +203,7 @@ function MainCenterPlaylistItem() {
             </a>
           </div>
           <div className="track__time">
-            <svg className="track__time-svg" alt="time">
-              <Like />
-            </svg>
+            <Like className="track__time-svg" alt="time"/>
             <span className="track__time-text">3:41</span>
           </div>
         </div>
@@ -241,9 +213,7 @@ function MainCenterPlaylistItem() {
         <div className="playlist__track track">
           <div className="track__title">
             <div className="track__title-image">
-              <svg className="track__title-svg" alt="music">
-                <Note />
-              </svg>
+              <Note className="track__title-svg" alt="music"/>
             </div>
             <div className="track__title-text">
               <a className="track__title-link" href="http://">
@@ -262,9 +232,7 @@ function MainCenterPlaylistItem() {
             </a>
           </div>
           <div className="track__time">
-            <svg className="track__time-svg" alt="time">
-              <Like />
-            </svg>
+            <Like className="track__time-svg" alt="time"/>
             <span className="track__time-text">1:48</span>
           </div>
         </div>
@@ -274,9 +242,7 @@ function MainCenterPlaylistItem() {
         <div className="playlist__track track">
           <div className="track__title">
             <div className="track__title-image">
-              <svg className="track__title-svg" alt="music">
-                <Note />
-              </svg>
+              <Note className="track__title-svg" alt="music"/>
             </div>
             <div className="track__title-text">
               <a className="track__title-link" href="http://">
@@ -295,9 +261,7 @@ function MainCenterPlaylistItem() {
             </a>
           </div>
           <div className="track__time">
-            <svg className="track__time-svg" alt="time">
-              <Like />
-            </svg>
+            <Like className="track__time-svg" alt="time"/>
             <span className="track__time-text">3:32</span>
           </div>
         </div>
@@ -307,9 +271,7 @@ function MainCenterPlaylistItem() {
         <div className="playlist__track track">
           <div className="track__title">
             <div className="track__title-image">
-              <svg className="track__title-svg" alt="music">
-                <Note />
-              </svg>
+              <Note className="track__title-svg" alt="music"/>
             </div>
             <div className="track__title-text">
               <a className="track__title-link" href="http://">
@@ -328,9 +290,8 @@ function MainCenterPlaylistItem() {
             </a>
           </div>
           <div className="track__time">
-            <svg className="track__time-svg" alt="time">
-              <Like />
-            </svg>
+            <Like className="track__time-svg" alt="time"/>
+
             <span className="track__time-text">3:36</span>
           </div>
         </div>
@@ -340,9 +301,7 @@ function MainCenterPlaylistItem() {
         <div className="playlist__track track">
           <div className="track__title">
             <div className="track__title-image">
-              <svg className="track__title-svg" alt="music">
-                <Note />
-              </svg>
+              <Note className="track__title-svg" alt="music"/>
             </div>
             <div className="track__title-text">
               <a className="track__title-link" href="http://">
@@ -362,9 +321,7 @@ function MainCenterPlaylistItem() {
             </a>
           </div>
           <div className="track__time">
-            <svg className="track__time-svg" alt="time">
-              <Like />
-            </svg>
+            <Like className="track__time-svg" alt="time"/>
             <span className="track__time-text" />
           </div>
         </div>

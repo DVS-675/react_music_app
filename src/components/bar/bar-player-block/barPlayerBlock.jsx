@@ -1,13 +1,13 @@
-import BarPlayerContent from "./barPlayerBlockContent/barPlayerContent"
-import BarPlayerVolume from "./barPlayerBlockContentVolume.jsx/barPlayerVolume"
+import PlayerContent from "./barPlayerBlockContent/barPlayerContent"
+import PlayerVolume from "./barPlayerBlockContentVolume.jsx/barPlayerVolume"
 
 function BarPlayerBlock() {
   return (
     <div className="bar__player-block">
       <div className="bar__player player">
-        <BarPlayerContent />
+        <PlayerContent />
       </div>
-      <BarPlayerVolume />
+      <PlayerVolume />
     </div>
   )
 }
