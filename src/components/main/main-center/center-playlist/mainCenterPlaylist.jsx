@@ -1,9 +1,9 @@
 import MainCenterPlaylistItem from "./mainCenterPlaylistItem"
 
-function MainCenterPlaylist() {
+function MainCenterPlaylist({ loading }) {
   return (
     <div className="content__playlist playlist">
-      <MainCenterPlaylistItem/>
+      <MainCenterPlaylistItem loading={loading} />
     </div>
   )
 }

@@ -1,8 +1,19 @@
+import { useState } from "react"
 import { ReactComponent as Search } from "../../../img/icon/search.svg"
 import MainCenterPlaylist from "./center-playlist/mainCenterPlaylist"
 import { ReactComponent as Watch } from "../../../img/icon/watch.svg"
+import CenterFilterItemAuthor from "./center-filter/centerFilterAuthor"
+import CenterFilterItemYear from "./center-filter/centerFilterYear"
+import CenterFilterItemGenre from "./center-filter/centerFilterGenre"
+import Skeleton from "../../skeleton/skeleton"
 
-function MainCenter() {
+function MainCenter({ loading }) {
+  const [visibleFilter, setVisibleFilter] = useState(null)
+
+  const toggleVisibleFilter = (filter) => {
+    setVisibleFilter(visibleFilter === filter ? null : filter)
+  }
+
   return (
     <div className="main__centerblock centerblock">
       <div className="centerblock__search search">
@@ -16,23 +27,82 @@ function MainCenter() {
       </div>
       <h2 className="centerblock__h2">Треки</h2>
       <div className="centerblock__filter filter">
-        <div className="filter__title">Искать по:</div>
-        <div className="filter__button button-author _btn-text">
-          исполнителю
+        <p className="filter__title">Искать по:</p>
+        <div className="centerblock__filter_item">
+          <button
+            onClick={() => {
+              toggleVisibleFilter("author")
+            }}
+            value="author"
+            type="button"
+            className={
+              visibleFilter === "author"
+                ? "filter__button button-genre _btn-text button__active"
+                : "filter__button button-genre _btn-text"
+            }
+          >
+            исполнителю
+          </button>
+          {visibleFilter === "author" && <CenterFilterItemAuthor />}
         </div>
-        <div className="filter__button button-year _btn-text">году выпуска</div>
-        <div className="filter__button button-genre _btn-text">жанру</div>
+        <div className="centerblock__filter_item">
+          <button
+            onClick={() => toggleVisibleFilter("year")}
+            type="button"
+            value="year"
+            className={
+              visibleFilter === "year"
+                ? "filter__button button-genre _btn-text button__active"
+                : "filter__button button-genre _btn-text"
+            }
+          >
+            году выпуска
+          </button>
+          {visibleFilter === "year" && <CenterFilterItemYear />}
+        </div>
+        <div className="centerblock__filter_item">
+          <button
+            onClick={() => toggleVisibleFilter("genre")}
+            type="button"
+            value="genre"
+            className={
+              visibleFilter === "genre"
+                ? "filter__button button-genre _btn-text button__active"
+                : "filter__button button-genre _btn-text"
+            }
+          >
+            жанру
+          </button>
+          {visibleFilter === "genre" && <CenterFilterItemGenre />}
+        </div>
       </div>
       <div className="centerblock__content">
-        <div className="content__title playlist-title">
-          <div className="playlist-title__col col01">Трек</div>
-          <div className="playlist-title__col col02">ИСПОЛНИТЕЛЬ</div>
-          <div className="playlist-title__col col03">АЛЬБОМ</div>
-          <div className="playlist-title__col col04">
-            <Watch className="playlist-title__svg" alt="time" />
+        {loading ? (
+          <div className="content__title playlist-title">
+            <div className="playlist-title__col col01">
+              <Skeleton width="100px" height="20px" />
+            </div>
+            <div className="playlist-title__col col02">
+              <Skeleton width="100px" height="20px" />
+            </div>
+            <div className="playlist-title__col col03">
+              <Skeleton width="100px" height="20px" />
+            </div>
+            <div className="playlist-title__col col04">
+              <Watch className="playlist-title__svg" alt="time" />
+            </div>
           </div>
-        </div>
-        <MainCenterPlaylist />
+        ) : (
+          <div className="content__title playlist-title">
+            <div className="playlist-title__col col01">Трек</div>
+            <div className="playlist-title__col col02">ИСПОЛНИТЕЛЬ</div>
+            <div className="playlist-title__col col03">АЛЬБОМ</div>
+            <div className="playlist-title__col col04">
+              <Watch className="playlist-title__svg" alt="time" />
+            </div>
+          </div>
+        )}
+        <MainCenterPlaylist loading={loading}/>
       </div>
     </div>
   )
