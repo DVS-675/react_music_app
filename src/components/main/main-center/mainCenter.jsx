@@ -6,6 +6,7 @@ import CenterFilterItemAuthor from "./center-filter/centerFilterAuthor"
 import CenterFilterItemYear from "./center-filter/centerFilterYear"
 import CenterFilterItemGenre from "./center-filter/centerFilterGenre"
 import Skeleton from "../../skeleton/skeleton"
+import data from "../../../utils/state"
 
 function MainCenter({ loading }) {
   const [visibleFilter, setVisibleFilter] = useState(null)
@@ -102,7 +103,7 @@ function MainCenter({ loading }) {
             </div>
           </div>
         )}
-        <MainCenterPlaylist loading={loading}/>
+        <MainCenterPlaylist data={data} loading={loading} />
       </div>
     </div>
   )
