@@ -650,4 +650,26 @@ body {
 }
 .volume__progress-line {
   width: 109px;
+}
+
+.filterItemBox {
+  display: flex;
+  gap: 28px;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.filterItemBox::-webkit-scrollbar {
+  width: 4px;
+  height: 237px;
+  border-radius: 10px;
+  background: #4b4949;
+}
+
+.filterItemBox::-webkit-scrollbar-thumb {
+  height: 65px;
+  background: white;
+  border-radius: 10px;
 }/*# sourceMappingURL=App.css.map */

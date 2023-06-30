@@ -2,9 +2,9 @@ import { useState } from "react"
 import { ReactComponent as Search } from "../../../img/icon/search.svg"
 import MainCenterPlaylist from "./center-playlist/mainCenterPlaylist"
 import { ReactComponent as Watch } from "../../../img/icon/watch.svg"
-import CenterFilterItemAuthor from "./center-filter/centerFilterAuthor"
-import CenterFilterItemYear from "./center-filter/centerFilterYear"
-import CenterFilterItemGenre from "./center-filter/centerFilterGenre"
+import CenterFilterAuthor from "./center-filter/centerFilterAuthor"
+import CenterFilterYear from "./center-filter/centerFilterYear"
+import CenterFilterGenre from "./center-filter/centerFilterGenre"
 import Skeleton from "../../skeleton/skeleton"
 import data from "../../../utils/state"
 
@@ -44,7 +44,7 @@ function MainCenter({ loading }) {
           >
             исполнителю
           </button>
-          {visibleFilter === "author" && <CenterFilterItemAuthor />}
+          {visibleFilter === "author" && <CenterFilterAuthor data={data}/>}
         </div>
         <div className="centerblock__filter_item">
           <button
@@ -59,7 +59,7 @@ function MainCenter({ loading }) {
           >
             году выпуска
           </button>
-          {visibleFilter === "year" && <CenterFilterItemYear />}
+          {visibleFilter === "year" && <CenterFilterYear data={data}/>}
         </div>
         <div className="centerblock__filter_item">
           <button
@@ -74,7 +74,7 @@ function MainCenter({ loading }) {
           >
             жанру
           </button>
-          {visibleFilter === "genre" && <CenterFilterItemGenre />}
+          {visibleFilter === "genre" && <CenterFilterGenre data={data}/>}
         </div>
       </div>
       <div className="centerblock__content">

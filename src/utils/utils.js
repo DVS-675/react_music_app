@@ -5,3 +5,4 @@ const formatTime = (timeInSeconds) => {
 }
 
 export default formatTime
+
