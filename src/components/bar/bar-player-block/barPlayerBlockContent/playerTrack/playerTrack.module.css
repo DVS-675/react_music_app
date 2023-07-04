@@ -1,0 +1,96 @@
+.player {
+  display: flex;
+  flex-direction: row;
+}
+.track {
+  width: auto;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: "image author" "image album";
+  align-items: center;
+}
+.image {
+  width: 51px;
+  height: 51px;
+  background-color: #313131;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  grid-area: image;
+}
+.track_author {
+  grid-area: author;
+  min-width: 49px;
+}
+.track_album {
+  grid-area: album;
+  min-width: 49px;
+}
+.svg {
+  width: 18px;
+  height: 17px;
+  fill: transparent;
+  stroke: #4e4e4e;
+}
+.author_link {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.album_link {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 24px;
+  color: #ffffff;
+}
+.like_dis {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-left: 26%;
+}
+
+.like,
+.dislike {
+  padding: 5px;
+}
+
+.dislike {
+  margin-left: 28.5px;
+}
+.like_svg {
+  width: 14px;
+  height: 12px;
+  fill: transparent;
+  stroke: #696969;
+}
+
+.dislike_svg {
+  width: 14.34px;
+  height: 13px;
+  fill: transparent;
+  stroke: #696969;
+}
+._btn_icon:active svg {
+  fill: transparent;
+  stroke: #ffffff;
+  cursor: pointer;
+}
+
+._btn_icon:active .track-play__like-svg,
+._btn_icon:active .track-play__dislike-svg {
+  fill: #696969;
+  stroke: #ffffff;
+  cursor: pointer;
+}
+._btn_icon:hover svg {
+  fill: transparent;
+  stroke: #acacac;
+  cursor: pointer;
+}

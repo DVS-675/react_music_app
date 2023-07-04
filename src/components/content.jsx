@@ -1,12 +1,13 @@
 import Main from './main/main'
 import Bar from './bar/bar'
+import classes from './content.module.css'
 
 function Container({loading}) {
   return (
-    <div className="container">
+    <div className={classes.container}>
       <Main loading={loading}/>
       <Bar loading={loading}/>
-      <footer className="footer" />
+      <footer/>
     </div>
   )
 }

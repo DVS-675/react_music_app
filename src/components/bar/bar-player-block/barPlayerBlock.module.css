@@ -1,0 +1,12 @@
+.player_box {
+    height: 73px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .player {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }

@@ -1,6 +1,7 @@
-import "./css/App.css"
+
 import { useEffect, useState } from "react"
 import Container from "./components/content"
+import classes from "./App.module.css"
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -10,8 +11,8 @@ function App() {
   })
 
   return (
-    <div className="wrapper">
-      <Container loading={loading}/>
+    <div className={classes.wrapper}>
+      <Container loading={loading} />
     </div>
   )
 }
