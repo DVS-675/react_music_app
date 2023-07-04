@@ -1,11 +1,11 @@
 import PlayerControls from "./barPlayerContentControls/barPlayerControls"
 import PlayerContentTrack from "./barPlayerContentTrack/barPlayerContentTrack"
 
-function PlayerContent() {
+function PlayerContent({loading}) {
   return (
     <>
       <PlayerControls />
-      <PlayerContentTrack />
+      <PlayerContentTrack loading={loading}/>
     </>
   )
 }
