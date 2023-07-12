@@ -39,7 +39,7 @@ function Nav() {
               </Link>
             </li>
             <li className={classes.menu_item}>
-              <Link className={classes.menu_link} to='/myplaylist'>
+              <Link className={classes.menu_link} to='/playlist/4'>
                 Мои треки
               </Link>
             </li>

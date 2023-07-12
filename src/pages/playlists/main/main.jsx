@@ -2,8 +2,16 @@ import CenterHeader from "../../../components/main/main-center/center-header/cen
 import Nav from "../../../components/main/nav/nav"
 import { ReactComponent as Search } from "../../../img/icon/search.svg"
 import classes from "./main.module.css"
+import { useEffect, useState } from "react"
 
-export const Main = ({ title }) => {
+import MainPlaylist from "../../../components/main/main-center/center-playlist/playlist"
+
+export const Main = ({ title, data }) => {
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 3000)
+  })
   return (
     <main className={classes.main}>
       <Nav />
@@ -21,6 +29,7 @@ export const Main = ({ title }) => {
         <div className={classes.center_content}>
           <CenterHeader />
         </div>
+        <MainPlaylist loading={loading} data={data} />
       </div>
       <div className={classes.sidebar}>
         <div className={classes.personal}>

@@ -1,13 +1,9 @@
 import classes from "./index.module.css"
 import Logo from "../../img/logo_black.svg"
-import { Link } from "react-router-dom"
-import Cookies from "js-cookie"
+import { Link } from "react-router-dom" 
 
-export const LogIn = () => {
-  const AddCookie = () => {
-    Cookies.set("token", "value")
-  }
-  Cookies.get('token')
+export const LogIn = () => { 
+  
   return (
     <div className={classes.main}>
       <div className={classes.container}>
@@ -23,7 +19,7 @@ export const LogIn = () => {
           />
         </form>
         <div className={classes.button_box}>
-          <Link onClick={AddCookie} className={classes.button} to="/">
+          <Link className={classes.button} to="/">
             Войти
           </Link>
           <Link className={classes.button_reg} to="/registration">

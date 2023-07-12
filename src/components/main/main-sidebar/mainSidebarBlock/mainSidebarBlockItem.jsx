@@ -8,7 +8,7 @@ function MainSidebarBlockItem() {
   return (
     <>
       <div className={classes.item}>
-        <Link className={classes.link} to="/playlist1">
+        <Link className={classes.link} to='/playlist/1'>
           <img
             className={classes.img}
             src={`${playlist01}`}
@@ -17,7 +17,7 @@ function MainSidebarBlockItem() {
         </Link>
       </div>
       <div className={classes.item}>
-        <Link className={classes.link} to="/playlist2">
+        <Link className={classes.link} to='/playlist/2'>
           <img
             className={classes.img}
             src={`${playlist02}`}
@@ -26,7 +26,7 @@ function MainSidebarBlockItem() {
         </Link>
       </div>
       <div className={classes.item}>
-        <Link className={classes.link} to="/playlist3">
+        <Link className={classes.link} to='/playlist/3'>
           <img
             className={classes.img}
             src={`${playlist03}`}
