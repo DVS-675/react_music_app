@@ -1,10 +1,11 @@
 import BarPlayerBlock from "./bar-player-block/barPlayerBlock"
+import classes from './bar.module.css'
 
 function Bar({loading}) {
   return (
-    <div className="bar">
-      <div className="bar__content">
-        <div className="bar__player-progress" />
+    <div className={classes.bar}>
+      <div className={classes.content}>
+        <div className={classes.player_progress} />
         <BarPlayerBlock loading={loading}/>
       </div>
     </div>

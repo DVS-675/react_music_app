@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { ReactComponent as Search } from "../../../img/icon/search.svg"
-import MainCenterPlaylist from "./center-playlist/mainCenterPlaylist"
-import { ReactComponent as Watch } from "../../../img/icon/watch.svg"
-import CenterFilterAuthor from "./center-filter/centerFilterAuthor"
-import CenterFilterYear from "./center-filter/centerFilterYear"
-import CenterFilterGenre from "./center-filter/centerFilterGenre"
-import Skeleton from "../../skeleton/skeleton"
+import MainPlaylist from "./center-playlist/playlist"
+import FilterAuthor from "./center-filter/filterAuthor"
+import FilterYear from "./center-filter/filterYear"
+import FilterGenre from "./center-filter/filterGenre"
 import data from "../../../utils/state"
+import classes from "./mainCenter.module.css"
+import CenterHeader from "./center-header/centerHeader"
 
 function MainCenter({ loading }) {
   const [visibleFilter, setVisibleFilter] = useState(null)
@@ -16,20 +16,20 @@ function MainCenter({ loading }) {
   }
 
   return (
-    <div className="main__centerblock centerblock">
-      <div className="centerblock__search search">
-        <Search className="search__svg" />
+    <div className={classes.centerblock}>
+      <div className={classes.search}>
+        <Search className={classes.search_svg} />
         <input
-          className="search__text"
+          className={classes.search_text}
           type="search"
           placeholder="Поиск"
           name="search"
         />
       </div>
-      <h2 className="centerblock__h2">Треки</h2>
-      <div className="centerblock__filter filter">
-        <p className="filter__title">Искать по:</p>
-        <div className="centerblock__filter_item">
+      <h2 className={classes.title}>Треки</h2>
+      <div className={classes.filter}>
+        <p className={classes.filter_title}>Искать по:</p>
+        <div className={classes.filter_item}>
           <button
             onClick={() => {
               toggleVisibleFilter("author")
@@ -38,72 +38,48 @@ function MainCenter({ loading }) {
             type="button"
             className={
               visibleFilter === "author"
-                ? "filter__button button-genre _btn-text button__active"
-                : "filter__button button-genre _btn-text"
+                ? `${classes.filter_button} ${classes.btn_text} ${classes.button_active}`
+                : `${classes.filter_button} ${classes.btn_text}`
             }
           >
             исполнителю
           </button>
-          {visibleFilter === "author" && <CenterFilterAuthor data={data}/>}
+          {visibleFilter === "author" && <FilterAuthor data={data} />}
         </div>
-        <div className="centerblock__filter_item">
+        <div className={classes.filter_item}>
           <button
             onClick={() => toggleVisibleFilter("year")}
             type="button"
             value="year"
             className={
               visibleFilter === "year"
-                ? "filter__button button-genre _btn-text button__active"
-                : "filter__button button-genre _btn-text"
+                ? `${classes.filter_button} ${classes.btn_text} ${classes.button_active}`
+                : `${classes.filter_button} ${classes.btn_text}`
             }
           >
             году выпуска
           </button>
-          {visibleFilter === "year" && <CenterFilterYear data={data}/>}
+          {visibleFilter === "year" && <FilterYear data={data} />}
         </div>
-        <div className="centerblock__filter_item">
+        <div className={classes.filter_item}>
           <button
             onClick={() => toggleVisibleFilter("genre")}
             type="button"
             value="genre"
             className={
               visibleFilter === "genre"
-                ? "filter__button button-genre _btn-text button__active"
-                : "filter__button button-genre _btn-text"
+                ? `${classes.filter_button} ${classes.btn_text} ${classes.button_active}`
+                : `${classes.filter_button} ${classes.btn_text}`
             }
           >
             жанру
           </button>
-          {visibleFilter === "genre" && <CenterFilterGenre data={data}/>}
+          {visibleFilter === "genre" && <FilterGenre data={data} />}
         </div>
       </div>
-      <div className="centerblock__content">
-        {loading ? (
-          <div className="content__title playlist-title">
-            <div className="playlist-title__col col01">
-              <Skeleton width="100px" height="20px" />
-            </div>
-            <div className="playlist-title__col col02">
-              <Skeleton width="100px" height="20px" />
-            </div>
-            <div className="playlist-title__col col03">
-              <Skeleton width="100px" height="20px" />
-            </div>
-            <div className="playlist-title__col col04">
-              <Watch className="playlist-title__svg" alt="time" />
-            </div>
-          </div>
-        ) : (
-          <div className="content__title playlist-title">
-            <div className="playlist-title__col col01">Трек</div>
-            <div className="playlist-title__col col02">ИСПОЛНИТЕЛЬ</div>
-            <div className="playlist-title__col col03">АЛЬБОМ</div>
-            <div className="playlist-title__col col04">
-              <Watch className="playlist-title__svg" alt="time" />
-            </div>
-          </div>
-        )}
-        <MainCenterPlaylist data={data} loading={loading} />
+      <div className={classes.center_content}>
+        <CenterHeader loading={loading} />
+        <MainPlaylist data={data} loading={loading} />
       </div>
     </div>
   )

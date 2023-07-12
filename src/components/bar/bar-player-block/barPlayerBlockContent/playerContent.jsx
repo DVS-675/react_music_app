@@ -1,5 +1,5 @@
-import PlayerControls from "./barPlayerContentControls/barPlayerControls"
-import PlayerContentTrack from "./barPlayerContentTrack/barPlayerContentTrack"
+import PlayerControls from "./playerControls/playerControls"
+import PlayerContentTrack from "./playerTrack/playerTrack"
 
 function PlayerContent({loading}) {
   return (

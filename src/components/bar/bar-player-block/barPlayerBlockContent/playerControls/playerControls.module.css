@@ -1,0 +1,81 @@
+.controls {
+  display: flex;
+  flex-direction: row;
+  padding: 0 27px 0 31px;
+}
+
+.btn_prev,
+.btn_play,
+.btn_next,
+.btn_repeat,
+.btn_shuffle {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+.btn_prev {
+  margin-right: 23px;
+}
+.btn_prev_svg {
+  width: 15px;
+  height: 14px;
+}
+.btn_play {
+  margin-right: 23px;
+}
+.btn_play_svg {
+  width: 22px;
+  height: 20px;
+  fill: #d9d9d9;
+}
+.btn_next {
+  margin-right: 28px;
+  fill: #a53939;
+}
+.btn_next_svg {
+  width: 15px;
+  height: 14px;
+  fill: inherit;
+  stroke: #d9d9d9;
+}
+.btn_repeat {
+  margin-right: 24px;
+}
+.btn_repeat_svg {
+  width: 18px;
+  height: 12px;
+  fill: transparent;
+  stroke: #696969;
+}
+.btn_shuffle {
+  display: flex;
+  align-items: center;
+}
+.btn_shuffle_svg {
+  width: 19px;
+  height: 12px;
+  fill: transparent;
+  stroke: #696969;
+}
+._btn {
+  cursor: pointer;
+}
+
+._btn_icon:hover svg {
+  fill: transparent;
+  stroke: #acacac;
+  cursor: pointer;
+}
+
+._btn_icon:active svg {
+  fill: transparent;
+  stroke: #ffffff;
+  cursor: pointer;
+}
+
+._btn_icon:active .track-play__like-svg,
+._btn_icon:active .track-play__dislike-svg {
+  fill: #696969;
+  stroke: #ffffff;
+  cursor: pointer;
+}
