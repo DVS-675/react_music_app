@@ -1,5 +1,5 @@
-import Main from "./main/main"
-import Bar from "./bar/bar"
+import Bar from "../../components/bar/bar"
+import Main from "../../components/main/main"
 import classes from "./content.module.css"
 import { useEffect, useState } from "react"
 

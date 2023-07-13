@@ -1,12 +1,12 @@
 import CenterHeader from "../../../components/main/main-center/center-header/centerHeader"
 import Nav from "../../../components/main/nav/nav"
 import { ReactComponent as Search } from "../../../img/icon/search.svg"
-import classes from "./main.module.css"
+import classes from "./mainContent.module.css"
 import { useEffect, useState } from "react"
 
 import MainPlaylist from "../../../components/main/main-center/center-playlist/playlist"
 
-export const Main = ({ title, data }) => {
+export const MainContent = ({ title, data }) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {

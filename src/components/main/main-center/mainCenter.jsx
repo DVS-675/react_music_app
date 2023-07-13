@@ -9,12 +9,13 @@ import classes from "./mainCenter.module.css"
 import CenterHeader from "./center-header/centerHeader"
 
 function MainCenter({ loading }) {
+  
   const [visibleFilter, setVisibleFilter] = useState(null)
 
   const toggleVisibleFilter = (filter) => {
     setVisibleFilter(visibleFilter === filter ? null : filter)
   }
-
+  
   return (
     <div className={classes.centerblock}>
       <div className={classes.search}>

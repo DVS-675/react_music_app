@@ -1,8 +1,9 @@
 /* eslint-disable arrow-body-style */
 import MainPlaylistItem from "./playlistItem"
-import classes from './playlist.module.css'
+import classes from "./playlist.module.css"
 
-function MainPlaylist({ loading, data }) {
+function MainPlaylist({ data, loading }) {
+  
   const elements = data.map((item) => {
     return (
       <div key={item.id}>
