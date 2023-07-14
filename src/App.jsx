@@ -1,16 +1,12 @@
-
-import { useState } from "react";
+import Cookies from "js-cookie"
 import classes from "./App.module.css"
 import { AppRoutes } from "./routes"
 
-
+const user = Cookies.get("token")
 function App() {
-  /* const [user, setUser] = useState(null)
-  const handleLogin = () => setUser({ login: 'dimas'});
-  const handleLogout= () => setUser(null); */
   return (
     <div className={classes.wrapper}>
-      <AppRoutes />
+      <AppRoutes user={user} />
     </div>
   )
 }

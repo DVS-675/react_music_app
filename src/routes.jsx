@@ -6,21 +6,17 @@ import { Playlist } from "./pages/playlists/playlist/playlist"
 import Container from "./pages/mainPage/content"
 import { ProtectedRoute } from "./protectedRoute"
 
-export const AppRoutes = ({user}) => {
+export const AppRoutes = ({ user }) => {
   return (
     <Routes>
       <Route path="/login" element={<LogIn />} />
       <Route path="/registration" element={<Registration />} />
       <Route path="*" element={<NotFound />} />
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute isAllowed={Boolean(user)}>
-            <Container />
-          </ProtectedRoute>
-        }
-      />
-      <Route path="/playlist/:id" element={<Playlist />} />
+
+      <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
+        <Route path="/" element={<Container />} />
+        <Route path="/playlist/:id" element={<Playlist />} />
+      </Route>
     </Routes>
   )
 }

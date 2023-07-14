@@ -5,7 +5,7 @@ import Cookies from "js-cookie"
 
 export const LogIn = () => {
   const AddToken = () => {
-    Cookies.set("token", "value")
+    Cookies.set("token", "dima")
   }
   return (
     <div className={classes.main}>
