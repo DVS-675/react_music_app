@@ -6,6 +6,7 @@ import Cookies from "js-cookie"
 export const LogIn = () => {
   const AddToken = () => {
     Cookies.set("token", "dima")
+    window.location.reload()
   }
   return (
     <div className={classes.main}>
