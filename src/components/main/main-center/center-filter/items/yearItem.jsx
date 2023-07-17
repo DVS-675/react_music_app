@@ -1,6 +1,6 @@
 import getYear from "../../../../../utils/getYear"
 
-function YearItem({ year }) {
+export const YearItem = ({ year }) => {
   return (
     <a style={{ color: "white" }} href="#author">
       {getYear(year)}
@@ -8,4 +8,4 @@ function YearItem({ year }) {
   )
 }
 
-export default YearItem
+

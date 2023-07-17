@@ -1,9 +1,9 @@
-import Bar from "../../components/bar/bar"
-import Main from "../../components/main/main"
+import  { Bar } from "../../components/bar/bar"
+import { Main } from "../../components/main/main"
 import classes from "./content.module.css"
 import { useEffect, useState } from "react"
 
-function Container() {
+export const Container = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -18,4 +18,4 @@ function Container() {
   )
 }
 
-export default Container
+

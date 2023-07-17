@@ -1,4 +1,4 @@
-function AuthorItem({ author }) {
+export const AuthorItem = ({ author }) => {
   return (
     <a style={{ color: "white" }} href="#author">
       {author}
@@ -6,4 +6,4 @@ function AuthorItem({ author }) {
   )
 }
 
-export default AuthorItem
+

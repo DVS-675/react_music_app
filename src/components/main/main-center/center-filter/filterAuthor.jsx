@@ -1,9 +1,8 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable arrow-body-style */
-import AuthorItem from "./items/authorItem"
+
+import { AuthorItem } from "./items/authorItem"
 import classes from "./filter.module.css"
 
-function FilterAuthor({ data }) {
+export const FilterAuthor = ({ data }) => {
   const elements = data.map((item) => {
     return (
       <div key={item.id}>
@@ -19,4 +18,4 @@ function FilterAuthor({ data }) {
   )
 }
 
-export default FilterAuthor
+

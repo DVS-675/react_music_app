@@ -1,10 +1,10 @@
 import { ReactComponent as Note } from "../../../../img/icon/note.svg"
 import { ReactComponent as Like } from "../../../../img/icon/like.svg"
-import Skeleton from "../../../skeleton/skeleton.jsx"
+import { Skeleton } from "../../../skeleton/skeleton.jsx"
 import formatTime from "../../../../utils/utils"
 import classes from "./playlistItem.module.css"
 
-function MainPlaylistItem({ loading, name, author, album, durationInSeconds }) {
+export const MainPlaylistItem = ({ loading, name, author, album, durationInSeconds }) => {
   return (
     <div>
       {loading ? (
@@ -72,4 +72,4 @@ function MainPlaylistItem({ loading, name, author, album, durationInSeconds }) {
   )
 }
 
-export default MainPlaylistItem
+

@@ -4,7 +4,7 @@ import playlist03 from "../../../../img/playlist03.png"
 import classes from "./mainSidebarBlockItem.module.css"
 import { Link } from "react-router-dom"
 
-function MainSidebarBlockItem() {
+export const MainSidebarBlockItem = () => {
   return (
     <>
       <div className={classes.item}>
@@ -38,4 +38,4 @@ function MainSidebarBlockItem() {
   )
 }
 
-export default MainSidebarBlockItem
+

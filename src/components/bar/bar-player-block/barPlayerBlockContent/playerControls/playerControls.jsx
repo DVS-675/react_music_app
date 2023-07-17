@@ -5,7 +5,7 @@ import { ReactComponent as Repeat } from "../../../../../img/icon/repeat.svg"
 import { ReactComponent as Shuffle } from "../../../../../img/icon/shuffle.svg"
 import classes from './playerControls.module.css'
 
-function PlayerControls() {
+ export const PlayerControls = () => {
   return (
     <div className={classes.controls}>
       <div className={classes.btn_prev}>
@@ -27,4 +27,4 @@ function PlayerControls() {
   )
 }
 
-export default PlayerControls
+

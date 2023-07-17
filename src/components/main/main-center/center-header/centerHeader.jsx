@@ -1,8 +1,8 @@
 import { ReactComponent as Watch } from "../../../../img/icon/watch.svg"
-import Skeleton from "../../../skeleton/skeleton"
+import { Skeleton } from "../../../skeleton/skeleton.jsx"
 import classes from "./centerHeader.module.css"
 
-function CenterHeader({ loading }) {
+export const CenterHeader = ({ loading }) => {
   return (
     <div>
       {loading ? (
@@ -38,4 +38,4 @@ function CenterHeader({ loading }) {
   )
 }
 
-export default CenterHeader
+

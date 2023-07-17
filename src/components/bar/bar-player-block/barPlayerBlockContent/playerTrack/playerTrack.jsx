@@ -1,10 +1,10 @@
 import { ReactComponent as Note } from "../../../../../img/icon/note.svg"
 import { ReactComponent as Like } from "../../../../../img/icon/like.svg"
 import { ReactComponent as Dislike } from "../../../../../img/icon/dislike.svg"
-import Skeleton from "../../../../skeleton/skeleton.jsx"
+import { Skeleton } from "../../../../skeleton/skeleton.jsx"
 import classes from './playerTrack.module.css'
 
-function PlayerContentTrack({ loading }) {
+export const PlayerContentTrack = ({ loading }) => {
   return (
     <div className={classes.player}>
       <div className={classes.track}>
@@ -50,4 +50,4 @@ function PlayerContentTrack({ loading }) {
   )
 }
 
-export default PlayerContentTrack
+

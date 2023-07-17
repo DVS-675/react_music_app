@@ -3,11 +3,11 @@ import Logo from "../../../img/logo.png"
 import classes from "./nav.module.css"
 import { Link } from "react-router-dom"
 
-function Nav() {
+export const Nav = () => {
   const [visible, setVisible] = useState(false)
   const toggleVisibility = () => setVisible(!visible)
 
-  function toggleVisibilityDown(e) {
+  const toggleVisibilityDown = (e) => {
     if (e.keyCode === 13) {
       toggleVisibility()
     }
@@ -55,4 +55,4 @@ function Nav() {
   )
 }
 
-export default Nav
+

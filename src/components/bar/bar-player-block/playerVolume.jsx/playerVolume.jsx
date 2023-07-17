@@ -1,7 +1,7 @@
 import { ReactComponent as Volume } from "../../../../img/icon/volume.svg"
 import classes from "./playerVolume.module.css"
 
-function PlayerVolume() {
+export const PlayerVolume = () => {
   return (
     <div className={classes.volume_block}>
       <div className={classes.volume_content}>
@@ -20,4 +20,4 @@ function PlayerVolume() {
   )
 }
 
-export default PlayerVolume
+

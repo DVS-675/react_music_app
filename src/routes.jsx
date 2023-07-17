@@ -3,7 +3,7 @@ import { LogIn } from "./pages/logIn/index"
 import { NotFound } from "./pages/notFound"
 import { Registration } from "./pages/registration"
 import { Playlist } from "./pages/playlists/playlist/playlist"
-import Container from "./pages/mainPage/content"
+import { Container } from "./pages/mainPage/content"
 import { ProtectedRoute } from "./protectedRoute"
 
 export const AppRoutes = ({ user }) => {

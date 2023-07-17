@@ -1,8 +1,8 @@
-/* eslint-disable arrow-body-style */
-import MainPlaylistItem from "./playlistItem"
+
+import { MainPlaylistItem } from "./playlistItem"
 import classes from "./playlist.module.css"
 
-function MainPlaylist({ data, loading }) {
+export const MainPlaylist = ({ data, loading }) => {
   
   const elements = data.map((item) => {
     return (
@@ -26,4 +26,4 @@ function MainPlaylist({ data, loading }) {
   return <div className={classes.playlist}>{elements}</div>
 }
 
-export default MainPlaylist
+

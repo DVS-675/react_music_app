@@ -1,4 +1,4 @@
-import Bar from "../../components/bar/bar"
+import { Bar } from "../../components/bar/bar"
 import { NotFoundBox } from "./NotFoundBox/notFound"
 import classes from "./index.module.css"
 

@@ -1,4 +1,4 @@
-import Bar from "../../../components/bar/bar"
+import { Bar } from "../../../components/bar/bar"
 import { MainContent } from "../mainContent/mainContent"
 import { useParams } from "react-router-dom"
 import dataPlaylist from "../../../utils/state_playlists"
