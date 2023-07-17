@@ -1,20 +1,21 @@
 import { useState } from "react"
 import { ReactComponent as Search } from "../../../img/icon/search.svg"
-import MainPlaylist from "./center-playlist/playlist"
-import FilterAuthor from "./center-filter/filterAuthor"
-import FilterYear from "./center-filter/filterYear"
-import FilterGenre from "./center-filter/filterGenre"
+import { MainPlaylist } from "./center-playlist/playlist"
+import { FilterAuthor } from "./center-filter/filterAuthor"
+import { FilterYear } from "./center-filter/filterYear"
+import { FilterGenre } from "./center-filter/filterGenre"
 import data from "../../../utils/state"
 import classes from "./mainCenter.module.css"
-import CenterHeader from "./center-header/centerHeader"
+import { CenterHeader } from "./center-header/centerHeader"
 
-function MainCenter({ loading }) {
+export const MainCenter = ({ loading }) => {
+  
   const [visibleFilter, setVisibleFilter] = useState(null)
 
   const toggleVisibleFilter = (filter) => {
     setVisibleFilter(visibleFilter === filter ? null : filter)
   }
-
+  
   return (
     <div className={classes.centerblock}>
       <div className={classes.search}>
@@ -85,4 +86,4 @@ function MainCenter({ loading }) {
   )
 }
 
-export default MainCenter
+

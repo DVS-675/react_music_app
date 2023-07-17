@@ -1,10 +1,9 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable arrow-body-style */
 
-import YearItem from "./items/yearItem"
+
+import { YearItem } from "./items/yearItem"
 import classes from "./filter.module.css"
 
-function FilterYear({ data }) {
+export const FilterYear = ({ data }) => {
   const elements = data.map((item) => {
     return (
       <div key={item.id}>
@@ -20,4 +19,4 @@ function FilterYear({ data }) {
   )
 }
 
-export default FilterYear
+

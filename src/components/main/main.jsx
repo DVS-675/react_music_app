@@ -1,9 +1,9 @@
-import Nav from './nav/nav'
-import MainCenter from './main-center/mainCenter'
-import MainSidebar from './main-sidebar/mainSidebar'
+import { Nav } from './nav/nav'
+import { MainCenter } from './main-center/mainCenter'
+import { MainSidebar } from './main-sidebar/mainSidebar'
 import classes from './main.module.css'
 
-function Main({loading}) {
+export const Main = ({loading}) => {
   return (
     <main className={classes.main}>
       <Nav />
@@ -13,4 +13,4 @@ function Main({loading}) {
   )
 }
 
-export default Main
+

@@ -1,7 +1,7 @@
-import PlayerControls from "./playerControls/playerControls"
-import PlayerContentTrack from "./playerTrack/playerTrack"
+import { PlayerControls } from "./playerControls/playerControls"
+import { PlayerContentTrack } from "./playerTrack/playerTrack"
 
-function PlayerContent({loading}) {
+ export const PlayerContent = ({loading}) => {
   return (
     <>
       <PlayerControls />
@@ -10,4 +10,4 @@ function PlayerContent({loading}) {
   )
 }
 
-export default PlayerContent
+

@@ -1,12 +1,13 @@
 import { useState } from "react"
 import Logo from "../../../img/logo.png"
 import classes from "./nav.module.css"
+import { Link } from "react-router-dom"
 
-function Nav() {
+export const Nav = () => {
   const [visible, setVisible] = useState(false)
   const toggleVisibility = () => setVisible(!visible)
 
-  function toggleVisibilityDown(e) {
+  const toggleVisibilityDown = (e) => {
     if (e.keyCode === 13) {
       toggleVisibility()
     }
@@ -33,19 +34,19 @@ function Nav() {
         <div className={classes.menu}>
           <ul className={classes.menu_list}>
             <li className={classes.menu_item}>
-              <a href="http://" className={classes.menu_link}>
+              <Link className={classes.menu_link} to='/'>
                 Главное
-              </a>
+              </Link>
             </li>
             <li className={classes.menu_item}>
-              <a href="http://" className={classes.menu_link}>
-                Мой плейлист
-              </a>
+              <Link className={classes.menu_link} to='/playlist/4'>
+                Мои треки
+              </Link>
             </li>
             <li className={classes.menu_item}>
-              <a href="http://" className={classes.menu_link}>
+              <Link className={classes.menu_link} to='/login'>
                 Войти
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
@@ -54,4 +55,4 @@ function Nav() {
   )
 }
 
-export default Nav
+

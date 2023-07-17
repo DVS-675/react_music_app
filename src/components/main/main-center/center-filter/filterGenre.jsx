@@ -1,11 +1,10 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable arrow-body-style */
 
-import GenreItem from "./items/genreItem"
+
+import { GenreItem } from "./items/genreItem"
 import classes from "./filter.module.css"
 
 
-function FilterGenre({ data }) {
+export const FilterGenre = ({ data }) => {
   const elements = data.map((item) => {
     return (
       <div key={item.id}>
@@ -21,4 +20,4 @@ function FilterGenre({ data }) {
   )
 }
 
-export default FilterGenre
+

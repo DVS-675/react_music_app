@@ -1,7 +1,7 @@
-import MainSidebarBlockItem from "./mainSidebarBlockItem"
+import { MainSidebarBlockItem } from "./mainSidebarBlockItem"
 import classes from './mainSidebarBlock.module.css'
 
-function MainSidebarBlock() {
+export const MainSidebarBlock = () => {
   return (
     <div className={classes.block}>
       <div className={classes.list}>
@@ -11,4 +11,4 @@ function MainSidebarBlock() {
   )
 }
 
-export default MainSidebarBlock
+
