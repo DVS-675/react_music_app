@@ -1,11 +1,11 @@
 import { PlayerControls } from "./playerControls/playerControls"
 import { PlayerContentTrack } from "./playerTrack/playerTrack"
 
- export const PlayerContent = ({loading}) => {
+ export const PlayerContent = ({loading, currentTrack}) => {
   return (
     <>
       <PlayerControls />
-      <PlayerContentTrack loading={loading}/>
+      <PlayerContentTrack currentTrack={currentTrack} loading={loading}/>
     </>
   )
 }

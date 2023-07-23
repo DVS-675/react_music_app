@@ -2,9 +2,9 @@ import { ReactComponent as Note } from "../../../../../img/icon/note.svg"
 import { ReactComponent as Like } from "../../../../../img/icon/like.svg"
 import { ReactComponent as Dislike } from "../../../../../img/icon/dislike.svg"
 import { Skeleton } from "../../../../skeleton/skeleton.jsx"
-import classes from './playerTrack.module.css'
+import classes from "./playerTrack.module.css"
 
-export const PlayerContentTrack = ({ loading }) => {
+export const PlayerContentTrack = ({ loading, currentTrack }) => {
   return (
     <div className={classes.player}>
       <div className={classes.track}>
@@ -26,14 +26,10 @@ export const PlayerContentTrack = ({ loading }) => {
               <Note className={classes.svg} alt="music" />
             </div>
             <div className={classes.author}>
-              <a className={classes.author_link} href="http://">
-                Ты та...
-              </a>
+              <a className={classes.author_link}>{currentTrack.author}</a>
             </div>
             <div className={classes.album}>
-              <a className={classes.album_link} href="http://">
-                Баста
-              </a>
+              <a className={classes.album_link}>{currentTrack.album}</a>
             </div>
           </>
         )}
@@ -49,5 +45,3 @@ export const PlayerContentTrack = ({ loading }) => {
     </div>
   )
 }
-
-

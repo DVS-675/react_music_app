@@ -3,6 +3,7 @@ import { Skeleton } from "../../../skeleton/skeleton.jsx"
 import classes from "./centerHeader.module.css"
 
 export const CenterHeader = ({ loading }) => {
+  
   return (
     <div>
       {loading ? (

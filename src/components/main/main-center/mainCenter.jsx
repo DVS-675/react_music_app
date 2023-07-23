@@ -4,18 +4,16 @@ import { MainPlaylist } from "./center-playlist/playlist"
 import { FilterAuthor } from "./center-filter/filterAuthor"
 import { FilterYear } from "./center-filter/filterYear"
 import { FilterGenre } from "./center-filter/filterGenre"
-import data from "../../../utils/state"
 import classes from "./mainCenter.module.css"
 import { CenterHeader } from "./center-header/centerHeader"
 
-export const MainCenter = ({ loading }) => {
-  
+export const MainCenter = ({ error, tracks, loading, setCurrentTrack }) => {
   const [visibleFilter, setVisibleFilter] = useState(null)
 
   const toggleVisibleFilter = (filter) => {
     setVisibleFilter(visibleFilter === filter ? null : filter)
   }
-  
+
   return (
     <div className={classes.centerblock}>
       <div className={classes.search}>
@@ -45,7 +43,7 @@ export const MainCenter = ({ loading }) => {
           >
             исполнителю
           </button>
-          {visibleFilter === "author" && <FilterAuthor data={data} />}
+          {visibleFilter === "author" && <FilterAuthor tracks={tracks} />}
         </div>
         <div className={classes.filter_item}>
           <button
@@ -60,7 +58,7 @@ export const MainCenter = ({ loading }) => {
           >
             году выпуска
           </button>
-          {visibleFilter === "year" && <FilterYear data={data} />}
+          {visibleFilter === "year" && <FilterYear tracks={tracks} />}
         </div>
         <div className={classes.filter_item}>
           <button
@@ -75,15 +73,13 @@ export const MainCenter = ({ loading }) => {
           >
             жанру
           </button>
-          {visibleFilter === "genre" && <FilterGenre data={data} />}
+          {visibleFilter === "genre" && <FilterGenre tracks={tracks} />}
         </div>
       </div>
       <div className={classes.center_content}>
         <CenterHeader loading={loading} />
-        <MainPlaylist data={data} loading={loading} />
+        <MainPlaylist setCurrentTrack={setCurrentTrack} error={error} tracks={tracks} loading={loading} />
       </div>
     </div>
   )
 }
-
-

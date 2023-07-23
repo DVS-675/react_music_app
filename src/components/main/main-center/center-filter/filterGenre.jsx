@@ -4,8 +4,8 @@ import { GenreItem } from "./items/genreItem"
 import classes from "./filter.module.css"
 
 
-export const FilterGenre = ({ data }) => {
-  const elements = data.map((item) => {
+export const FilterGenre = ({ tracks }) => {
+  const elements = tracks.map((item) => {
     return (
       <div key={item.id}>
         <GenreItem genre={item.genre} />
