@@ -2,8 +2,8 @@ import { MainPlaylistItem } from "./playlistItem"
 import classes from "./playlist.module.css"
 
 export const MainPlaylist = ({ error, tracks, loading, setCurrentTrack }) => {
-  console.log(loading)
-  const elements = tracks.map((item) => {
+ console.log(tracks)
+  const elements =  tracks && tracks.map((item) => {
     return (
       <div onClick={() => setCurrentTrack(item)} key={item.id}>
         <MainPlaylistItem

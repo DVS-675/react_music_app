@@ -8,6 +8,7 @@ import classes from "./mainCenter.module.css"
 import { CenterHeader } from "./center-header/centerHeader"
 
 export const MainCenter = ({ error, tracks, loading, setCurrentTrack }) => {
+  
   const [visibleFilter, setVisibleFilter] = useState(null)
 
   const toggleVisibleFilter = (filter) => {
