@@ -9,9 +9,7 @@ export const Container = () => {
   const [loading, setLoading] = useState(false)
   const [getTracksError, setGetTracksError] = useState(null)
 
-  const [currentTrack, setCurrentTrack] = useState(null)
-
-  
+  const [currentTrack, setCurrentTrack] = useState(null)  
 
   useEffect(() => {
     setLoading(true)
