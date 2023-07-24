@@ -1,8 +1,8 @@
 import { MainPlaylistItem } from "./playlistItem"
 import classes from "./playlist.module.css"
 
-export const MainPlaylist = ({ error, tracks, loading, setCurrentTrack }) => {
- console.log(tracks)
+export const MainPlaylist = ({ getTracksError, tracks, loading, setCurrentTrack }) => {
+ 
   const elements =  tracks && tracks.map((item) => {
     return (
       <div onClick={() => setCurrentTrack(item)} key={item.id}>
@@ -23,7 +23,7 @@ export const MainPlaylist = ({ error, tracks, loading, setCurrentTrack }) => {
 
   return (
     <>
-      {error ? "не удалось загрузить плейлист, попробуйте позже" : null}
+      {getTracksError ? "не удалось загрузить плейлист, попробуйте позже" : null}
       {loading ? "loading" : <div className={classes.playlist}>{elements}</div>}
     </>
   )

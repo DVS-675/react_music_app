@@ -12,8 +12,8 @@ export async function getTracks() {
   return data
 }
 
-export async function getTracksPlaylist(id) {
-    const response = await fetch(baseURL + `catalog/selection/${id}`)
+export async function getTracksPlaylist(params) {
+    const response = await fetch(baseURL + `catalog/selection/${params}`)
   
     if (!response.ok) {
       throw new Error("не удалось загрузить плейлист, попробуйте позже")

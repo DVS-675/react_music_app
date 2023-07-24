@@ -12,12 +12,11 @@ function App() {
   const [currentTrack, setCurrentTrack] = useState(null)
 
   useEffect(() => {
-    console.log("1")
+  
     setLoading(true)
     getTracks()
       .then((tracks) => {
-        setLoading(false)
-        console.log(tracks)
+        setLoading(false)        
         setTracks(tracks)
       })
       .catch((error) => {
@@ -31,7 +30,8 @@ function App() {
       <AppRoutes
         currentTrack={currentTrack}
         setCurrentTrack={setCurrentTrack}
-        error={getTracksError}
+        getTracksError={getTracksError}
+        setGetTracksError={setGetTracksError}
         tracks={tracks}
         loading={loading}
         setLoading={setLoading}

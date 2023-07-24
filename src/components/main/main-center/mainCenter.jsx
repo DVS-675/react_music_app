@@ -7,7 +7,7 @@ import { FilterGenre } from "./center-filter/filterGenre"
 import classes from "./mainCenter.module.css"
 import { CenterHeader } from "./center-header/centerHeader"
 
-export const MainCenter = ({ error, tracks, loading, setCurrentTrack }) => {
+export const MainCenter = ({ getTracksError, tracks, loading, setCurrentTrack }) => {
   
   const [visibleFilter, setVisibleFilter] = useState(null)
 
@@ -79,7 +79,7 @@ export const MainCenter = ({ error, tracks, loading, setCurrentTrack }) => {
       </div>
       <div className={classes.center_content}>
         <CenterHeader loading={loading} />
-        <MainPlaylist setCurrentTrack={setCurrentTrack} error={error} tracks={tracks} loading={loading} />
+        <MainPlaylist setCurrentTrack={setCurrentTrack} getTracksError={getTracksError} tracks={tracks} loading={loading} />
       </div>
     </div>
   )

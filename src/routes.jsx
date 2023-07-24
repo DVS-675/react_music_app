@@ -10,7 +10,8 @@ function AppRoutes({
   user,
   currentTrack,
   setCurrentTrack,
-  error,
+  getTracksError,
+  setGetTracksError,
   tracks,
   setTracks,
   loading,
@@ -31,7 +32,7 @@ function AppRoutes({
             <Container
               currentTrack={currentTrack}
               setCurrentTrack={setCurrentTrack}
-              error={error}
+              getTracksError={getTracksError}
               tracks={tracks}
               loading={loading}
             />
@@ -43,9 +44,10 @@ function AppRoutes({
             <Playlist
               tracks={tracks}
               setTracks={setTracks}
-              setCurrentTrack={setCurrentTrack}
               currentTrack={currentTrack}
-              error={error}
+              setCurrentTrack={setCurrentTrack}
+              getTracksError={getTracksError}
+              setGetTracksError={setGetTracksError}
               loading={loading}
               setLoading={setLoading}
             />

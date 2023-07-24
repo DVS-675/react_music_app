@@ -5,7 +5,7 @@ import classes from "./content.module.css"
 export const Container = ({
   setCurrentTrack,
   currentTrack,
-  error,
+  getTracksError,
   tracks,
   loading
 }) => {
@@ -14,7 +14,7 @@ export const Container = ({
 
   return (
     <div className={classes.container}>
-      <Main setCurrentTrack={setCurrentTrack} error={error} tracks={tracks} loading={loading} />
+      <Main setCurrentTrack={setCurrentTrack} getTracksError={getTracksError} tracks={tracks} loading={loading} />
       <Bar 
         currentTrack={currentTrack}        
         loading={loading}
