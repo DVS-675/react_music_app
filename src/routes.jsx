@@ -12,7 +12,9 @@ function AppRoutes({
   setCurrentTrack,
   error,
   tracks,
+  setTracks,
   loading,
+  setLoading,
 }) {
   console.log(tracks)
   return (
@@ -39,10 +41,13 @@ function AppRoutes({
           path="/playlist/:id"
           element={
             <Playlist
-              currentTrack={currentTrack}
+              tracks={tracks}
+              setTracks={setTracks}
               setCurrentTrack={setCurrentTrack}
+              currentTrack={currentTrack}
               error={error}
               loading={loading}
+              setLoading={setLoading}
             />
           }
         />

@@ -14,10 +14,9 @@ export const Container = ({
 
   return (
     <div className={classes.container}>
-      <Main error={error} tracks={tracks} loading={loading} />
-      <Bar
-        currentTrack={currentTrack}
-        setCurrentTrack={setCurrentTrack}
+      <Main setCurrentTrack={setCurrentTrack} error={error} tracks={tracks} loading={loading} />
+      <Bar 
+        currentTrack={currentTrack}        
         loading={loading}
       />
       <footer />

@@ -34,7 +34,9 @@ function App() {
         error={getTracksError}
         tracks={tracks}
         loading={loading}
+        setLoading={setLoading}
         user={user}
+        setTracks={setTracks}
       />
     </div>
   )
