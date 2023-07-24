@@ -1,11 +1,11 @@
 import Cookies from "js-cookie"
 import classes from "./App.module.css"
-import { AppRoutes } from "./routes"
+import AppRoutes from "./routes"
 import { useEffect, useState } from "react"
 import { getTracks } from "./api"
 
 const user = Cookies.get("token")
-export default function App() {
+function App() {
   const [tracks, setTracks] = useState([])
   const [loading, setLoading] = useState(false)
   const [getTracksError, setGetTracksError] = useState(null)
@@ -26,7 +26,6 @@ export default function App() {
       })
   }, [])
 
-  
   return (
     <div className={classes.wrapper}>
       <AppRoutes
@@ -40,3 +39,5 @@ export default function App() {
     </div>
   )
 }
+
+export default App

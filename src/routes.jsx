@@ -6,14 +6,15 @@ import { Playlist } from "./pages/playlists/playlist/playlist"
 import { Container } from "./pages/mainPage/content"
 import { ProtectedRoute } from "./protectedRoute"
 
-export const AppRoutes = ({
+function AppRoutes({
   user,
   currentTrack,
   setCurrentTrack,
   error,
   tracks,
   loading,
-}) => {  
+}) {
+  console.log(tracks)
   return (
     <Routes>
       <Route path="/login" element={<LogIn />} />
@@ -34,8 +35,19 @@ export const AppRoutes = ({
             />
           }
         />
-        <Route path="/playlist/:id" element={<Playlist />} />
+        <Route
+          path="/playlist/:id"
+          element={
+            <Playlist
+              currentTrack={currentTrack}
+              setCurrentTrack={setCurrentTrack}
+              error={error}
+              loading={loading}
+            />
+          }
+        />
       </Route>
     </Routes>
   )
 }
+export default AppRoutes

@@ -6,12 +6,8 @@ import { useEffect, useState } from "react"
 
 import { MainPlaylist } from "../../../components/main/main-center/center-playlist/playlist"
 
-export const MainContent = ({ title, data }) => {
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 3000)
-  })
+export const MainContent = ({ error, loading, title, data }) => {
+  
   return (
     <main className={classes.main}>
       <Nav />
@@ -29,7 +25,7 @@ export const MainContent = ({ title, data }) => {
         <div className={classes.center_content}>
           <CenterHeader />
         </div>
-        <MainPlaylist loading={loading} data={data} />
+        <MainPlaylist loading={loading} tracks={data} error={error} />
       </div>
       <div className={classes.sidebar}>
         <div className={classes.personal}>
