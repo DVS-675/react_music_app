@@ -3,6 +3,8 @@ import classes from "./playlist.module.css"
 
 export const MainPlaylist = ({ getTracksError, tracks, loading, setCurrentTrack }) => {
  
+ 
+
   const elements =  tracks && tracks.map((item) => {
     return (
       <div onClick={() => setCurrentTrack(item)} key={item.id}>

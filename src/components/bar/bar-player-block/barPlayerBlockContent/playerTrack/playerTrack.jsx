@@ -4,7 +4,7 @@ import { ReactComponent as Dislike } from "../../../../../img/icon/dislike.svg"
 import { Skeleton } from "../../../../skeleton/skeleton.jsx"
 import classes from "./playerTrack.module.css"
 
-export const PlayerContentTrack = ({ loading, currentTrack }) => {
+export const PlayerContentTrack = ({ audioRef, loading, currentTrack }) => {
   return (
     <div className={classes.player}>
       <div className={classes.track}>
