@@ -1,21 +1,25 @@
-import  { Bar } from "../../components/bar/bar"
+import { Bar } from "../../components/bar/bar"
 import { Main } from "../../components/main/main"
 import classes from "./content.module.css"
-import { useEffect, useState } from "react"
 
-export const Container = () => {
-  const [loading, setLoading] = useState(true)
+export const Container = ({
+  setCurrentTrack,
+  currentTrack,
+  getTracksError,
+  tracks,
+  loading
+}) => {
+  console.log(tracks)
+  console.log(loading)
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 3000)
-  })
   return (
     <div className={classes.container}>
-      <Main loading={loading} />
-      <Bar loading={loading} />
+      <Main setCurrentTrack={setCurrentTrack} getTracksError={getTracksError} tracks={tracks} loading={loading} />
+      <Bar 
+        currentTrack={currentTrack}        
+        loading={loading}
+      />
       <footer />
     </div>
   )
 }
-
-

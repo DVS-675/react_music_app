@@ -4,7 +4,16 @@ import { Skeleton } from "../../../skeleton/skeleton.jsx"
 import formatTime from "../../../../utils/utils"
 import classes from "./playlistItem.module.css"
 
-export const MainPlaylistItem = ({ loading, name, author, album, durationInSeconds }) => {
+
+export const MainPlaylistItem = ({
+  loading,
+  name,
+  author,
+  album,
+  durationInSeconds,
+}) => {
+  
+
   return (
     <div>
       {loading ? (
@@ -44,20 +53,16 @@ export const MainPlaylistItem = ({ loading, name, author, album, durationInSecon
                 <Note className={classes.track_svg} alt="music" />
               </div>
               <div>
-                <a className={classes.track_link} href="http://">
+                <p className={classes.track_link}>
                   {name} <span className={classes.track_span} />
-                </a>
+                </p>
               </div>
             </div>
             <div className={classes.author}>
-              <a className={classes.author_link} href="http://">
-                {author}
-              </a>
+              <p className={classes.author_link}>{author}</p>
             </div>
             <div className={classes.album}>
-              <a className={classes.album_link} href="http://">
-                {album}
-              </a>
+              <p className={classes.album_link}>{album}</p>
             </div>
             <div>
               <Like className={classes.time_svg} alt="time" />
@@ -71,5 +76,3 @@ export const MainPlaylistItem = ({ loading, name, author, album, durationInSecon
     </div>
   )
 }
-
-

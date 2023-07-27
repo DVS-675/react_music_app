@@ -3,8 +3,8 @@
 import { YearItem } from "./items/yearItem"
 import classes from "./filter.module.css"
 
-export const FilterYear = ({ data }) => {
-  const elements = data.map((item) => {
+export const FilterYear = ({ tracks }) => {
+  const elements = tracks.map((item) => {
     return (
       <div key={item.id}>
         <YearItem year={item.release_date} />

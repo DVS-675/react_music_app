@@ -6,7 +6,18 @@ import { Playlist } from "./pages/playlists/playlist/playlist"
 import { Container } from "./pages/mainPage/content"
 import { ProtectedRoute } from "./protectedRoute"
 
-export const AppRoutes = ({ user }) => {
+function AppRoutes({
+  user,
+  currentTrack,
+  setCurrentTrack,
+  getTracksError,
+  setGetTracksError,
+  tracks,
+  setTracks,
+  loading,
+  setLoading,
+}) {
+  console.log(tracks)
   return (
     <Routes>
       <Route path="/login" element={<LogIn />} />
@@ -14,9 +25,36 @@ export const AppRoutes = ({ user }) => {
       <Route path="*" element={<NotFound />} />
 
       <Route element={<ProtectedRoute isAllowed={Boolean(user)} />}>
-        <Route path="/" element={<Container />} />
-        <Route path="/playlist/:id" element={<Playlist />} />
+        <Route
+          user={user}
+          path="/"
+          element={
+            <Container
+              currentTrack={currentTrack}
+              setCurrentTrack={setCurrentTrack}
+              getTracksError={getTracksError}
+              tracks={tracks}
+              loading={loading}
+            />
+          }
+        />
+        <Route
+          path="/playlist/:id"
+          element={
+            <Playlist
+              tracks={tracks}
+              setTracks={setTracks}
+              currentTrack={currentTrack}
+              setCurrentTrack={setCurrentTrack}
+              getTracksError={getTracksError}
+              setGetTracksError={setGetTracksError}
+              loading={loading}
+              setLoading={setLoading}
+            />
+          }
+        />
       </Route>
     </Routes>
   )
 }
+export default AppRoutes

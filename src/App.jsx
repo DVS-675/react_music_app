@@ -1,12 +1,43 @@
 import Cookies from "js-cookie"
 import classes from "./App.module.css"
-import { AppRoutes } from "./routes"
+import AppRoutes from "./routes"
+import { useEffect, useState } from "react"
+import { getTracks } from "./api"
 
 const user = Cookies.get("token")
 function App() {
+  const [tracks, setTracks] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [getTracksError, setGetTracksError] = useState(null)
+  const [currentTrack, setCurrentTrack] = useState(null)
+
+  useEffect(() => {
+  
+    setLoading(true)
+    getTracks()
+      .then((tracks) => {
+        setLoading(false)        
+        setTracks(tracks)
+      })
+      .catch((error) => {
+        setGetTracksError(error.message)
+        setLoading(false)
+      })
+  }, [])
+
   return (
     <div className={classes.wrapper}>
-      <AppRoutes user={user} />
+      <AppRoutes
+        currentTrack={currentTrack}
+        setCurrentTrack={setCurrentTrack}
+        getTracksError={getTracksError}
+        setGetTracksError={setGetTracksError}
+        tracks={tracks}
+        loading={loading}
+        setLoading={setLoading}
+        user={user}
+        setTracks={setTracks}
+      />
     </div>
   )
 }
