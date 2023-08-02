@@ -1,8 +1,7 @@
-
-const baseURL = 'https://painassasin.online/';
+const baseURL = "https://painassasin.online/"
 
 export async function getTracks() {
-  const response = await fetch((baseURL + 'catalog/track/all/'))
+  const response = await fetch(baseURL + "catalog/track/all/")
 
   if (!response.ok) {
     throw new Error("не удалось загрузить плейлист, попробуйте позже")
@@ -13,12 +12,60 @@ export async function getTracks() {
 }
 
 export async function getTracksPlaylist(params) {
-    const response = await fetch(baseURL + `catalog/selection/${params}`)
-  
-    if (!response.ok) {
-      throw new Error("не удалось загрузить плейлист, попробуйте позже")
-    }
-  
-    const data = await response.json()
-    return data
+  const response = await fetch(baseURL + `catalog/selection/${params}`)
+
+  if (!response.ok) {
+    throw new Error("не удалось загрузить плейлист, попробуйте позже")
   }
+
+  const data = await response.json()
+  return data
+}
+
+export async function login({ email, password }) {
+  const response = await fetch(baseURL + "user/login/", {
+    method: "POST",
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    }),
+    headers: {
+      // API требует обязательного указания заголовка content-type, так апи понимает что мы посылаем ему json строчку в теле запроса
+      "content-type": "application/json",
+    },
+  })
+
+  if (!response.ok && !response.status === "400") {
+    throw new Error("Ошибка сервера")
+  }
+
+  const data = await response.json()
+
+  return data
+}
+
+export async function registration({ email, password }) {
+  console.log(email)
+  console.log(password)
+
+  const response = await fetch(baseURL + "user/signup/", {
+    method: "POST",
+    body: JSON.stringify({
+      email: email,
+      password: password,
+      username: email,
+    }),
+
+    headers: {
+      // API требует обязательного указания заголовка content-type, так апи понимает что мы посылаем ему json строчку в теле запроса
+      "content-type": "application/json",
+    },
+  })
+  if (!response.ok && !response.status === "400") {
+    throw new Error("Ошибка сервера")
+  }
+
+  const data = await response.json()
+  console.log(data)
+  return data
+}
