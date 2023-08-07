@@ -6,8 +6,30 @@ import { ReactComponent as Shuffle } from "../../../../../img/icon/shuffle.svg"
 import { ReactComponent as Pause } from "../../../../../img/icon/pause.svg"
 import classes from "./playerControls.module.css"
 import { useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import {
+  setPlayTrack,
+  setTracksIds,
+} from "../../../../../store/actions/creators/tracks"
+import {
+  playTrackSelector,
+  tracksAllSelector,
+  tracksIdsSelector,
+} from "../../../../../store/selectors/tracks"
+
+import {
+  shuffle,
+  findNextTrackId,
+  findPrevTrackId,
+} from "../../../../../utils/playerHelpers"
 
 export const PlayerControls = ({ audioRef }) => {
+  const [shuffleClick, setShuffleClick] = useState(false)
+  const playTrack = useSelector(playTrackSelector)
+  const allTracks = useSelector(tracksAllSelector)
+  const tracksIds = useSelector(tracksIdsSelector)
+  const dispatch = useDispatch()
+
   const [playerState, setPlayerState] = useState({
     isPaused: false,
     isLoop: false,
@@ -30,9 +52,50 @@ export const PlayerControls = ({ audioRef }) => {
     setPlayerState({ ...playerState, isLoop: !playerState.isLoop })
   }
 
+  const toggleShuffle = () => {
+    setShuffleClick(!shuffleClick)
+    let ids = allTracks.map((track) => track.id)
+    if (!shuffleClick) {
+      ids = shuffle(ids)
+      dispatch(setTracksIds(ids))
+    } else {
+      ids = allTracks.map((track) => track.id)
+      dispatch(setTracksIds(ids))
+    }
+  }
+
+  const toggleNext = () => {
+    setPlayerState({ ...playerState, isPaused: false })
+    console.log(playTrack)
+    const index = tracksIds.indexOf(playTrack.id)
+    console.log(index)
+    let nextId
+    if (index === allTracks.length - 1) {
+      nextId = tracksIds[allTracks.length - 1]
+    } else {
+      nextId = tracksIds[index + 1]
+    }
+    console.log(nextId)
+    dispatch(setPlayTrack(findNextTrackId(nextId, allTracks)))
+  }
+
+  const togglePrev = () => {
+    setPlayerState({ ...playerState, isPaused: false })
+
+    const index = tracksIds.indexOf(playTrack.id)
+    let prevId
+    if (index === 0) {
+      prevId = tracksIds[0]
+    } else {
+      prevId = tracksIds[index - 1]
+    }
+
+    dispatch(setPlayTrack(findPrevTrackId(prevId, allTracks)))
+  }
+
   return (
     <div className={classes.controls}>
-      <div className={classes.btn_prev}>
+      <div onClick={togglePrev} role="button" className={classes.btn_prev}>
         <Prev className={classes.btn_prev_svg} alt="prev" />
       </div>
       {playerState.isPaused ? (
@@ -50,7 +113,7 @@ export const PlayerControls = ({ audioRef }) => {
           <Pause className={classes.btn_pause_svg} alt="pause" />
         </div>
       )}
-      <div className={classes.btn_next}>
+      <div onClick={toggleNext} role="button" className={classes.btn_next}>
         <Next className={classes.btn_next_svg} alt="next" />
       </div>
       <div
@@ -66,8 +129,19 @@ export const PlayerControls = ({ audioRef }) => {
           alt="repeat"
         />
       </div>
-      <div className={`${classes.btn_shuffle} ${classes._btn_icon}`}>
-        <Shuffle className={classes.btn_shuffle_svg} alt="shuffle" />
+      <div
+        onClick={toggleShuffle}
+        role="button"
+        className={`${classes.btn_shuffle} ${classes._btn_icon}`}
+      >
+        <Shuffle
+          className={
+            shuffleClick
+              ? `${classes.btn_repeat_svg_active}`
+              : `${classes.btn_repeat_svg}`
+          }
+          alt="shuffle"
+        />
       </div>
     </div>
   )
