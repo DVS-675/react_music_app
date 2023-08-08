@@ -17,8 +17,9 @@ export const Container = ({
   const dispatch = useDispatch();
   const allTracks = useSelector(tracksAllSelector);
   console.log(currentTrack)
+
   useEffect(() => {
-    if (allTracks.length > 0) {
+    if (allTracks.length > 0 && currentTrack) {
       for (let i = 0; i < allTracks?.length; i += 1) {
 
         if (allTracks[i].id === currentTrack.id) {

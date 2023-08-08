@@ -34,6 +34,14 @@ export const PlayerControls = ({ audioRef }) => {
     isPaused: false,
     isLoop: false,
   })
+
+  // const playTrack = useSelector((store) => {
+  //   if (!store.tracks.playTrack) {
+  //     return null;
+  //   }
+  //   return store.tracks.playTrack;
+  // });
+
   if (audioRef.current) audioRef.current.loop = playerState.isLoop
 
   console.log(playerState.isLoop)

@@ -2,8 +2,8 @@ import { MainPlaylistItem } from "./playlistItem"
 import classes from "./playlist.module.css"
 
 export const MainPlaylist = ({ getTracksError, tracks, loading, setCurrentTrack }) => {
- 
- 
+
+
 
   const elements =  tracks && tracks.map((item) => {
     return (

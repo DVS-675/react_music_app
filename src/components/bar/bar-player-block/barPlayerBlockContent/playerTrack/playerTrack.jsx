@@ -5,6 +5,7 @@ import { Skeleton } from "../../../../skeleton/skeleton.jsx"
 import classes from "./playerTrack.module.css"
 
 export const PlayerContentTrack = ({ audioRef, loading, currentTrack }) => {
+
   return (
     <div className={classes.player}>
       <div className={classes.track}>
