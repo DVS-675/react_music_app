@@ -5,7 +5,7 @@ import { ReactComponent as Repeat } from "../../../../../img/icon/repeat.svg"
 import { ReactComponent as Shuffle } from "../../../../../img/icon/shuffle.svg"
 import { ReactComponent as Pause } from "../../../../../img/icon/pause.svg"
 import classes from "./playerControls.module.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import {
   setPlayTrack,
@@ -22,16 +22,15 @@ import {
   findNextTrackId,
   findPrevTrackId,
 } from "../../../../../utils/playerHelpers"
-import { useIsPlayingContext } from '../../../../../contexts/isPlaying';
+import { useIsPlayingContext } from "../../../../../contexts/isPlaying"
 
-export const PlayerControls = ({ audioRef }) => {
+export const PlayerControls = ({ currentTime, audioRef }) => {
   const [shuffleClick, setShuffleClick] = useState(false)
   const playTrack = useSelector(playTrackSelector)
   const allTracks = useSelector(tracksAllSelector)
   const tracksIds = useSelector(tracksIdsSelector)
   const dispatch = useDispatch()
-  const { isPlaying, toggleIsPlaying } = useIsPlayingContext();
-  
+  const { isPlaying, toggleIsPlaying } = useIsPlayingContext()
 
   const [playerState, setPlayerState] = useState({
     isPaused: false,
@@ -45,13 +44,13 @@ export const PlayerControls = ({ audioRef }) => {
   const handlerOnPlay = () => {
     audioRef.current.play()
     setPlayerState({ ...playerState, isPaused: false })
-    toggleIsPlaying(true);
+    toggleIsPlaying(true)
   }
 
   const handlerOnPause = () => {
     audioRef.current.pause()
     setPlayerState({ ...playerState, isPaused: true })
-    toggleIsPlaying(false);
+    toggleIsPlaying(false)
   }
 
   const handlerOnLoop = () => {
@@ -71,7 +70,7 @@ export const PlayerControls = ({ audioRef }) => {
   }
 
   const toggleNext = () => {
-    toggleIsPlaying(true);
+    toggleIsPlaying(true)
     setPlayerState({ ...playerState, isPaused: false })
     console.log(playTrack)
     const index = tracksIds.indexOf(playTrack.id)
@@ -87,7 +86,7 @@ export const PlayerControls = ({ audioRef }) => {
   }
 
   const togglePrev = () => {
-    toggleIsPlaying(true);
+    toggleIsPlaying(true)
     setPlayerState({ ...playerState, isPaused: false })
     console.log(playTrack)
     const index = tracksIds.indexOf(playTrack.id)
@@ -100,6 +99,20 @@ export const PlayerControls = ({ audioRef }) => {
     console.log(prevId)
     dispatch(setPlayTrack(findPrevTrackId(prevId, allTracks)))
   }
+
+  useEffect(() => {
+    if (currentTime === audioRef.current.duration && playerState.isLoop === false) {
+      const index = tracksIds.indexOf(playTrack.id)
+      let nextId
+      if (index === allTracks.length - 1) {
+        nextId = tracksIds[allTracks.length - 1]
+      } else {
+        nextId = tracksIds[index + 1]
+      }
+
+      dispatch(setPlayTrack(findNextTrackId(nextId, allTracks)))
+    }
+  }, [currentTime])
 
   return (
     <div className={classes.controls}>

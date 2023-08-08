@@ -1,9 +1,9 @@
 import formatTime from "../../../utils/utils"
 import * as S from "./styles"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 
-export const BarPlayerProgress = ({ audioRef }) => {
-  const [currentTime, setCurrentTime] = useState(0)
+export const BarPlayerProgress = ({ currentTime,setCurrentTime,audioRef }) => {
+  
   let duration = 0
   if (audioRef.current?.duration) {
     duration = audioRef.current.duration
