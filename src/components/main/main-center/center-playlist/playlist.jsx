@@ -1,13 +1,15 @@
 import { MainPlaylistItem } from "./playlistItem"
 import classes from "./playlist.module.css"
+import {setPlayTrack} from "../../../../store/actions/creators/tracks";
+import {useDispatch} from "react-redux";
 
 export const MainPlaylist = ({ getTracksError, tracks, loading, setCurrentTrack }) => {
 
-
+  const dispatch = useDispatch()
 
   const elements =  tracks && tracks.map((item) => {
     return (
-      <div onClick={() => setCurrentTrack(item)} key={item.id}>
+      <div onClick={() => dispatch(setPlayTrack(item))} key={item.id}>
         <MainPlaylistItem
           id={item.id}
           name={item.name}

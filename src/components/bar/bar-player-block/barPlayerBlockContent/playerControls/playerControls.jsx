@@ -73,7 +73,7 @@ export const PlayerControls = ({ audioRef }) => {
   }
 
   const toggleNext = () => {
-    setPlayerState({ ...playerState, isPaused: false })
+
     console.log(playTrack)
     const index = tracksIds.indexOf(playTrack.id)
 
@@ -88,7 +88,7 @@ export const PlayerControls = ({ audioRef }) => {
   }
 
   const togglePrev = () => {
-    setPlayerState({ ...playerState, isPaused: false })
+
     console.log(playTrack)
     const index = tracksIds.indexOf(playTrack.id)
     let prevId
