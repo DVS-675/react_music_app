@@ -5,9 +5,7 @@ export const PlayerContent = ({ audioRef, loading, currentTrack }) => {
   return (
     <>
       <PlayerControls audioRef={audioRef} currentTrack={currentTrack} />
-      <PlayerContentTrack
-        audioRef={audioRef}
-        currentTrack={currentTrack}
+      <PlayerContentTrack        
         loading={loading}
       />
     </>

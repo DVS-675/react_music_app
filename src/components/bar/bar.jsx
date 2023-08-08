@@ -10,7 +10,7 @@ export const Bar = ({ loading, currentTrack }) => {
   const playTrack = useSelector(playTrackSelector)
   return (
     <>
-      {currentTrack ? (
+      {playTrack ? (
         <div className={classes.bar}>
           <div className={classes.content}>
             <BarPlayerProgress audioRef={audioRef} />

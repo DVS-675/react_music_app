@@ -22,6 +22,7 @@ import {
   findNextTrackId,
   findPrevTrackId,
 } from "../../../../../utils/playerHelpers"
+import { useIsPlayingContext } from '../../../../../contexts/isPlaying';
 
 export const PlayerControls = ({ audioRef }) => {
   const [shuffleClick, setShuffleClick] = useState(false)
@@ -29,18 +30,13 @@ export const PlayerControls = ({ audioRef }) => {
   const allTracks = useSelector(tracksAllSelector)
   const tracksIds = useSelector(tracksIdsSelector)
   const dispatch = useDispatch()
-  const [isPlaying, setIsPlaying] = useState(true);
+  const { isPlaying, toggleIsPlaying } = useIsPlayingContext();
+  
+
   const [playerState, setPlayerState] = useState({
     isPaused: false,
     isLoop: false,
   })
-
-  // const playTrack = useSelector((store) => {
-  //   if (!store.tracks.playTrack) {
-  //     return null;
-  //   }
-  //   return store.tracks.playTrack;
-  // });
 
   if (audioRef.current) audioRef.current.loop = playerState.isLoop
 
@@ -49,11 +45,13 @@ export const PlayerControls = ({ audioRef }) => {
   const handlerOnPlay = () => {
     audioRef.current.play()
     setPlayerState({ ...playerState, isPaused: false })
+    toggleIsPlaying(true);
   }
 
   const handlerOnPause = () => {
     audioRef.current.pause()
     setPlayerState({ ...playerState, isPaused: true })
+    toggleIsPlaying(false);
   }
 
   const handlerOnLoop = () => {
@@ -73,6 +71,7 @@ export const PlayerControls = ({ audioRef }) => {
   }
 
   const toggleNext = () => {
+    toggleIsPlaying(true);
     setPlayerState({ ...playerState, isPaused: false })
     console.log(playTrack)
     const index = tracksIds.indexOf(playTrack.id)
@@ -88,6 +87,7 @@ export const PlayerControls = ({ audioRef }) => {
   }
 
   const togglePrev = () => {
+    toggleIsPlaying(true);
     setPlayerState({ ...playerState, isPaused: false })
     console.log(playTrack)
     const index = tracksIds.indexOf(playTrack.id)
