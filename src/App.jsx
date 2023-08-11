@@ -1,13 +1,13 @@
-
 import classes from "./App.module.css"
 import AppRoutes from "./routes"
 import { useEffect, useState } from "react"
 import { getTracks } from "./api"
-
+import { useDispatch } from "react-redux"
+import { setAllTracks, setTracksIds } from "./store/actions/creators/tracks"
 import { registration } from "./api"
 import { LoginContext } from "./contexts/login"
 import { UserContext } from "./contexts/user"
-
+import { IsPlayingContext } from "./contexts/isPlaying"
 
 function App() {
   const [auth, setAuth] = useState(localStorage.getItem("login"))
@@ -16,6 +16,9 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [getTracksError, setGetTracksError] = useState(null)
   const [currentTrack, setCurrentTrack] = useState(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+
+  const dispatch = useDispatch()
 
   const toggleLogin = () => {
     if (!auth) {
@@ -40,6 +43,8 @@ function App() {
       .then((tracks) => {
         setLoading(false)
         setTracks(tracks)
+        dispatch(setAllTracks(tracks))
+        dispatch(setTracksIds(tracks.map((track) => track.id)))
       })
       .catch((error) => {
         setGetTracksError(error.message)
@@ -47,26 +52,32 @@ function App() {
       })
   }, [])
 
+  const toggleIsPlaying = (value) => {
+    setIsPlaying(value)
+  }
+
   return (
     <div className={classes.wrapper}>
-      <LoginContext.Provider value={{ auth, toggleLogin, toggleLogout }}>
-        <UserContext.Provider value={{ user, setCurrentUser }}>
-          <AppRoutes
-            auth={auth}
-            setAuth={setAuth}
-            registration={registration}
-            currentTrack={currentTrack}
-            setCurrentTrack={setCurrentTrack}
-            getTracksError={getTracksError}
-            setGetTracksError={setGetTracksError}
-            tracks={tracks}
-            loading={loading}
-            setLoading={setLoading}
-            user={user}
-            setTracks={setTracks}
-          />
-        </UserContext.Provider>
-      </LoginContext.Provider>
+      <IsPlayingContext.Provider value={{ isPlaying, toggleIsPlaying }}>
+        <LoginContext.Provider value={{ auth, toggleLogin, toggleLogout }}>
+          <UserContext.Provider value={{ user, setCurrentUser }}>
+            <AppRoutes
+              auth={auth}
+              setAuth={setAuth}
+              registration={registration}
+              currentTrack={currentTrack}
+              setCurrentTrack={setCurrentTrack}
+              getTracksError={getTracksError}
+              setGetTracksError={setGetTracksError}
+              tracks={tracks}
+              loading={loading}
+              setLoading={setLoading}
+              user={user}
+              setTracks={setTracks}
+            />
+          </UserContext.Provider>
+        </LoginContext.Provider>
+      </IsPlayingContext.Provider>
     </div>
   )
 }

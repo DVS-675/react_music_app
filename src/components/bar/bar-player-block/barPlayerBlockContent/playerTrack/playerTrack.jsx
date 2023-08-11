@@ -3,8 +3,12 @@ import { ReactComponent as Like } from "../../../../../img/icon/like.svg"
 import { ReactComponent as Dislike } from "../../../../../img/icon/dislike.svg"
 import { Skeleton } from "../../../../skeleton/skeleton.jsx"
 import classes from "./playerTrack.module.css"
+import { useSelector } from "react-redux"
+import { playTrackSelector } from "../../../../../store/selectors/tracks"
 
 export const PlayerContentTrack = ({ audioRef, loading, currentTrack }) => {
+  const playTrack = useSelector(playTrackSelector)
+
   return (
     <div className={classes.player}>
       <div className={classes.track}>
@@ -26,10 +30,10 @@ export const PlayerContentTrack = ({ audioRef, loading, currentTrack }) => {
               <Note className={classes.svg} alt="music" />
             </div>
             <div className={classes.author}>
-              <a className={classes.author_link}>{currentTrack.author}</a>
+              <a className={classes.author_link}>{playTrack.author}</a>
             </div>
             <div className={classes.album}>
-              <a className={classes.album_link}>{currentTrack.album}</a>
+              <a className={classes.album_link}>{playTrack.album}</a>
             </div>
           </>
         )}

@@ -3,17 +3,19 @@ import { ReactComponent as Like } from "../../../../img/icon/like.svg"
 import { Skeleton } from "../../../skeleton/skeleton.jsx"
 import formatTime from "../../../../utils/utils"
 import classes from "./playlistItem.module.css"
-
+import Dot from "../../../dot/dot"
 
 export const MainPlaylistItem = ({
+  item,
+  playedTrack,
+  isPlaying,
   loading,
   name,
   author,
   album,
   durationInSeconds,
 }) => {
-  
-
+  console.log(playedTrack)
   return (
     <div>
       {loading ? (
@@ -23,6 +25,7 @@ export const MainPlaylistItem = ({
               <div className={classes.track_image}>
                 <Note className={classes.track_svg} alt="music" />
               </div>
+
               <div>
                 <a className={classes.track_link} href="http://">
                   <Skeleton width="150px" height="20px" />
@@ -49,9 +52,15 @@ export const MainPlaylistItem = ({
         <div className={classes.item}>
           <div className={classes.track}>
             <div className={classes.track_title}>
-              <div className={classes.track_image}>
-                <Note className={classes.track_svg} alt="music" />
-              </div>
+              {playedTrack && playedTrack.id === item.id ? (
+                <div className={classes.track_image}>
+                  <Dot isPlaying={isPlaying} />
+                </div>
+              ) : (
+                <div className={classes.track_image}>
+                  <Note className={classes.track_svg} alt="music" />
+                </div>
+              )}
               <div>
                 <p className={classes.track_link}>
                   {name} <span className={classes.track_span} />
