@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom"
 import * as S from "./LoginPage.styles"
 import { useEffect, useState } from "react"
-import { login } from "../../api"
+import { login, getToken } from "../../api"
 import { useUserContext } from "../../contexts/user"
 import { useLoginContext } from "../../contexts/login"
+import { useTokenContext } from "../../contexts/token"
 import logo from "../../img/logo_black.png"
 
 export default function LoginPage() {
@@ -16,6 +17,7 @@ export default function LoginPage() {
 
   const { setCurrentUser } = useUserContext()
   const { toggleLogin } = useLoginContext()
+  const { setToken } = useTokenContext()
 
   const handleLogin = async () => {
     try {
@@ -36,6 +38,9 @@ export default function LoginPage() {
       setError(error.message)
     } finally {
       setDisabled(false)
+      const token = await getToken(login, password)
+      setToken(token)
+      localStorage.setItem("refresh", token.refresh)
     }
   }
 

@@ -1,3 +1,4 @@
+
 import { PlayerControls } from "./playerControls/playerControls"
 import { PlayerContentTrack } from "./playerTrack/playerTrack"
 
@@ -6,15 +7,17 @@ export const PlayerContent = ({
   audioRef,
   loading,
   currentTrack,
+  playTrack
 }) => {
+  
   return (
     <>
       <PlayerControls
+        playTrack={playTrack}
         currentTime={currentTime}
         audioRef={audioRef}
-        currentTrack={currentTrack}
       />
-      <PlayerContentTrack loading={loading} />
+      <PlayerContentTrack playTrack={playTrack} loading={loading} />
     </>
   )
 }

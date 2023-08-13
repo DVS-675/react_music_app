@@ -3,11 +3,16 @@ import { BarPlayerProgress } from "./bar-player-progress/BarPlayerProgress"
 import classes from "./bar.module.css"
 import { useRef, useState } from "react"
 import { useSelector } from "react-redux"
-import { playTrackSelector } from "../../store/selectors/tracks"
 
-export const Bar = ({ loading, currentTrack }) => {
+
+export const Bar = ({ loading }) => {
   const audioRef = useRef(null)
-  const playTrack = useSelector(playTrackSelector)
+  const playTrack = useSelector((store) => {
+    if (!store.tracks.playTrack) {
+      return null
+    }
+    return store.tracks.playTrack
+  })
   const [currentTime, setCurrentTime] = useState(0)
   return (
     <>
@@ -20,9 +25,9 @@ export const Bar = ({ loading, currentTrack }) => {
               setCurrentTime={setCurrentTime}
             />
             <BarPlayerBlock
+              playTrack={playTrack}
               currentTime={currentTime}
               audioRef={audioRef}
-              currentTrack={currentTrack}
               loading={loading}
             />
             <audio ref={audioRef} src={playTrack.track_file} />

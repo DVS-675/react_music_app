@@ -20,7 +20,7 @@ export const MainContent = ({ getTracksError, loading, tracks, setCurrentTrack }
             name="search"
           />
         </div>
-        <h2 className={classes.title}>title</h2>
+        <h2 className={classes.title}>Мои треки</h2>
         <div className={classes.center_content}>
           <CenterHeader loading={loading}/>
         </div>

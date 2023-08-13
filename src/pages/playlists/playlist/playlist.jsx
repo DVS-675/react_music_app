@@ -1,9 +1,15 @@
 import { Bar } from "../../../components/bar/bar"
 import { MainContent } from "../mainContent/mainContent"
-import { useParams } from "react-router-dom"
 import classes from "./playlist.module.css"
-import { getTracksPlaylist } from "../../../api"
 import { useEffect } from "react"
+import { TracksContext } from "../../../contexts/tracks"
+import { useSelector, useDispatch } from "react-redux"
+
+import {
+  setTracksIds,
+  fetchTracksPlaylist,
+} from "../../../store/actions/creators/tracks"
+import { useSwitchPlaylistContext } from "../../../contexts/switchPlaylist"
 
 export const Playlist = ({
   tracks,
@@ -11,38 +17,33 @@ export const Playlist = ({
   currentTrack,
   setCurrentTrack,
   getTracksError,
-  setGetTracksError,   
+  setGetTracksError,
   loading,
   setLoading,
 }) => {
-  const params = useParams()
-  console.log(params.id)
-  
+  const dispatch = useDispatch()
+  const favoritesTracks = useSelector((store) => store.tracks.favoritesTracks)
+  const { switchPlaylist, setSwitchPlaylist } = useSwitchPlaylistContext()
   useEffect(() => {
-    console.log("1")
-    setLoading(true)
-    getTracksPlaylist(params.id)
-      .then((tracks) => {
-        setLoading(false)        
-        setTracks(tracks.items)       
-      })
-      .catch((error) => {
-        setGetTracksError(error.message)
-        setLoading(false)
-      })
-  }, [])
-  
-  console.log(tracks)
-  console.log(getTracksError)
+    if (favoritesTracks) {
+      if (switchPlaylist) {
+        dispatch(fetchTracksPlaylist(favoritesTracks))
+        dispatch(setTracksIds(favoritesTracks.map((trackData) => trackData.id)))
+        setSwitchPlaylist(false)
+      }
+    }
+  }, [favoritesTracks, switchPlaylist])
 
   return (
     <div className={classes.container}>
-      <MainContent
-        getTracksError={getTracksError}
-        loading={loading}
-        tracks={tracks}
-        setCurrentTrack={setCurrentTrack}
-      />
+      <TracksContext.Provider value={favoritesTracks}>
+        <MainContent
+          getTracksError={getTracksError}
+          loading={loading}
+          tracks={tracks}
+          setCurrentTrack={setCurrentTrack}
+        />
+      </TracksContext.Provider>
       <Bar currentTrack={currentTrack} loading={loading} />
       <footer />
     </div>

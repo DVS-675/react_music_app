@@ -4,11 +4,9 @@ import { ReactComponent as Dislike } from "../../../../../img/icon/dislike.svg"
 import { Skeleton } from "../../../../skeleton/skeleton.jsx"
 import classes from "./playerTrack.module.css"
 import { useSelector } from "react-redux"
-import { playTrackSelector } from "../../../../../store/selectors/tracks"
 
-export const PlayerContentTrack = ({ audioRef, loading, currentTrack }) => {
-  const playTrack = useSelector(playTrackSelector)
 
+export const PlayerContentTrack = ({ playTrack, loading }) => {
   return (
     <div className={classes.player}>
       <div className={classes.track}>

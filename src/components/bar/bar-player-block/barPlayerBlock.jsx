@@ -3,12 +3,12 @@ import { PlayerVolume } from "./playerVolume.jsx/playerVolume"
 import classes from "./barPlayerBlock.module.css"
 
 
-export const BarPlayerBlock = ({ currentTime,audioRef, loading, currentTrack }) => {    
+export const BarPlayerBlock = ({ playTrack, currentTime,audioRef, loading, currentTrack }) => {    
 
   return (
     <div className={classes.player_box}>
       <div className={classes.player}>
-        <PlayerContent currentTime={currentTime} loading={loading} audioRef={audioRef} currentTrack={currentTrack} />
+        <PlayerContent playTrack={playTrack} currentTime={currentTime} loading={loading} audioRef={audioRef} />
         
       </div>
       <PlayerVolume audioRef={audioRef}/>

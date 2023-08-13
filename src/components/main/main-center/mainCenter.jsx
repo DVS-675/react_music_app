@@ -79,7 +79,7 @@ export const MainCenter = ({ getTracksError, tracks, loading, setCurrentTrack })
       </div>
       <div className={classes.center_content}>
         <CenterHeader loading={loading} />
-        <MainPlaylist setCurrentTrack={setCurrentTrack} getTracksError={getTracksError} tracks={tracks} loading={loading} />
+        <MainPlaylist getTracksError={getTracksError} loading={loading} />
       </div>
     </div>
   )
