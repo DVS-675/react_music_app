@@ -1,6 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit"
-import tracksReducer from "./reducers/tracks"
-import { tracksApi } from "../services/tracks"
+
+import { configureStore } from '@reduxjs/toolkit';
+// import thunk from 'redux-thunk';
+import tracksReducer from './reducers/tracks';
+import { tracksApi } from '../services/tracks';
 
 const store = configureStore({
   reducer: {
@@ -9,6 +11,6 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(tracksApi.middleware),
-})
+});
 
-export default store
+export default store;

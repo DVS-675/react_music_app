@@ -6,7 +6,7 @@ import classes from "./mainContent.module.css"
 
 import { MainPlaylist } from "../../../components/main/main-center/center-playlist/playlist"
 
-export const MainContent = ({ getTracksError, loading, tracks, setCurrentTrack }) => {
+export const MainContent = ({ loading, errorMessage  }) => {
   return (
     <main className={classes.main}>
       <Nav />
@@ -24,7 +24,7 @@ export const MainContent = ({ getTracksError, loading, tracks, setCurrentTrack }
         <div className={classes.center_content}>
           <CenterHeader loading={loading}/>
         </div>
-        <MainPlaylist loading={loading} tracks={tracks} getTracksError={getTracksError} setCurrentTrack={setCurrentTrack}/>
+        <MainPlaylist loading={loading} errorMessage={errorMessage}/>
       </div>
       <div className={classes.sidebar}>
         <div className={classes.personal}>

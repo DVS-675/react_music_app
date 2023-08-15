@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ReactComponent as Search } from "../../../img/icon/search.svg"
 import { MainPlaylist } from "./center-playlist/playlist"
 import { FilterAuthor } from "./center-filter/filterAuthor"
@@ -6,10 +6,17 @@ import { FilterYear } from "./center-filter/filterYear"
 import { FilterGenre } from "./center-filter/filterGenre"
 import classes from "./mainCenter.module.css"
 import { CenterHeader } from "./center-header/centerHeader"
+import { getTracks } from "../../../api"
 
-export const MainCenter = ({ getTracksError, tracks, loading, setCurrentTrack }) => {
-  
+export const MainCenter = ({ errorMessage, loading }) => {
   const [visibleFilter, setVisibleFilter] = useState(null)
+  const [tracks, setTracks] = useState([])
+
+  useEffect(() => {
+    getTracks().then((tracks) => {
+      setTracks(tracks)
+    })
+  }, [])
 
   const toggleVisibleFilter = (filter) => {
     setVisibleFilter(visibleFilter === filter ? null : filter)
@@ -79,7 +86,7 @@ export const MainCenter = ({ getTracksError, tracks, loading, setCurrentTrack })
       </div>
       <div className={classes.center_content}>
         <CenterHeader loading={loading} />
-        <MainPlaylist getTracksError={getTracksError} loading={loading} />
+        <MainPlaylist errorMessage={errorMessage} loading={loading} />
       </div>
     </div>
   )

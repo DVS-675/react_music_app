@@ -1,34 +1,44 @@
 import { MainPlaylistItem } from "./playlistItem"
 import classes from "./playlist.module.css"
 import { setPlayTrack } from "../../../../store/actions/creators/tracks"
-import { useDispatch } from "react-redux"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+
 import { useIsPlayingContext } from "../../../../contexts/isPlaying"
 import { useEffect, useState } from "react"
 import { useTracksContext } from "../../../../contexts/tracks"
 import {
-  fetchTracksLikes,
-  fetchTracksFavorite,
+  setLikesState,
+  setFavoritesTracks,
 } from "../../../../store/actions/creators/tracks"
 import { useTokenContext } from "../../../../contexts/token"
 
 import {
   deleteTrackInFavorites,
   addTrackInFavorites,
-  getFavoritesTracks,
+  getTracks,
 } from "../../../../api"
 import { useSwitchPlaylistContext } from "../../../../contexts/switchPlaylist"
+import { createFavorites } from "../../../../utils/playerHelpers"
 
-export const MainPlaylist = ({ getTracksError, loading }) => {
+export const MainPlaylist = ({ errorMessage, loading }) => {
   const dispatch = useDispatch()
   const { token } = useTokenContext()
   const [trackClick, setTrackClick] = useState(false)
   const favoritesTracks = useSelector((store) => store.tracks.favoritesTracks)
+  console.log(token)
   const favoritesIds = favoritesTracks.map((favoriteTrack) => favoriteTrack.id)
   const tracksIds = useSelector((store) => store.tracks.tracksIds)
   const likesState = useSelector((store) => store.tracks.likesState)
   const initialState = {}
+  const { isPlaying, toggleIsPlaying } = useIsPlayingContext()
+
+  const user = localStorage.getItem("user")
   const { setSwitchPlaylist } = useSwitchPlaylistContext()
+
+  const getNewAllTracks = async () => {
+    const allTracks = await getTracks()
+    console.log(allTracks)
+  }
 
   useEffect(() => {
     if (trackClick) {
@@ -40,36 +50,31 @@ export const MainPlaylist = ({ getTracksError, loading }) => {
   }, [trackClick])
 
   const tracks = useTracksContext()
-
-  const playedTrack = useSelector((store) => store.tracks.playTrack)
-  const { isPlaying, toggleIsPlaying } = useIsPlayingContext()
-
-  const getNewFavoritesTracks = async () => {
-    dispatch(fetchTracksFavorite(await getFavoritesTracks(token.access)))
-  }
+  console.log(tracks)
 
   const toggleLike = async (event) => {
     const { id } = event.currentTarget
     const value = likesState[id]
     const newLikesState = { ...likesState }
 
-    if (value) {
-      newLikesState[id] = false
-      await deleteTrackInFavorites(token?.access, id)
-
-      if (token?.access) {
-        await getNewFavoritesTracks()
-      }
-    } else {
-      newLikesState[id] = true
+    const newFavorites = async () => {
       await addTrackInFavorites(token?.access, id)
-
-      if (token?.access) {
-        await getNewFavoritesTracks()
+      const newFavoritesTracks = createFavorites(await getNewAllTracks(), user)
+      console.log("new", newFavoritesTracks)
+      if (newFavoritesTracks) {
+        dispatch(setFavoritesTracks(newFavoritesTracks))
       }
     }
 
-    dispatch(fetchTracksLikes(newLikesState))
+    if (value) {
+      newLikesState[id] = false
+      await deleteTrackInFavorites(token?.access, id)
+      await newFavorites()
+    } else {
+      newLikesState[id] = true
+      await newFavorites()
+    }
+    dispatch(setLikesState(newLikesState))
   }
 
   useEffect(() => {
@@ -83,56 +88,45 @@ export const MainPlaylist = ({ getTracksError, loading }) => {
       initialState[favoritesIds[i]] = true
     }
 
-    dispatch(fetchTracksLikes(initialState))
+    dispatch(setLikesState(initialState))
   }, [favoritesTracks])
 
   const elements =
-    tracks &&
-    tracks.map((item) => {
-      return (
-        <div
-          onClick={() => {
-            dispatch(setPlayTrack(item))
-            toggleIsPlaying(true)
-            setTrackClick(true)
-          }}
-          role="button"
-          tabIndex={0}
-          key={item.id}
-          onKeyDown={() => {
-            dispatch(setPlayTrack(item))
-            toggleIsPlaying(true)
-            setTrackClick(true)
-          }}
-        >
-          <MainPlaylistItem
-            item={item}
-            playedTrack={playedTrack}
-            isPlaying={isPlaying}
-            id={item.id}
-            name={item.name}
-            author={item.author}
-            releaseDate={item.release_date}
-            genre={item.genre}
-            durationInSeconds={item.duration_in_seconds}
-            album={item.album}
-            logo={item.logo}
-            trackFile={item.track_file}
-            toggleLike={toggleLike}
-            likesState={likesState}
-            setTrackClick={setTrackClick}
-            loading={loading}
-            key={item.id || Math.random(5)}
-          />
-        </div>
-      )
-    })
+    tracks && tracks.length > 0
+      ? tracks.map((item) => {
+          return (
+            <div
+              onClick={() => {
+                dispatch(setPlayTrack(item))
+                toggleIsPlaying(true)
+                setTrackClick(true)
+              }}
+              role="button"
+              tabIndex={0}
+              key={item.id}
+              onKeyDown={() => {
+                dispatch(setPlayTrack(item))
+                toggleIsPlaying(true)
+                setTrackClick(true)
+              }}
+            >
+              <MainPlaylistItem
+                isPlaying={isPlaying}
+                item={item}
+                key={item.id || Math.random(5)}
+                loading={loading}
+                toggleLike={toggleLike}
+                likesState={likesState}
+                setTrackClick={setTrackClick}
+              />
+            </div>
+          )
+        })
+      : null
 
   return (
     <>
-      {getTracksError
-        ? "не удалось загрузить плейлист, попробуйте позже"
-        : null}
+      {errorMessage ? "не удалось загрузить плейлист, попробуйте позже" : null}
       {loading ? "loading" : <div className={classes.playlist}>{elements}</div>}
     </>
   )

@@ -6,55 +6,26 @@ import { Container } from "./pages/mainPage/content"
 import { ProtectedRoute } from "./protectedRoute"
 import LoginPage from "./pages/logIn/LoginPage"
 import { RegistrationPage } from "./pages/registration/RegistrationPage"
+import { Favorites } from "./pages/playlists/favorites/favorites"
 
-function AppRoutes({
-  auth,
-  setAuth,
-  registration,
-  user,
-  getTracksError,
-  setGetTracksError,
-  tracks,
-  setTracks,
-  loading,
-  setLoading,
-}) {
-  console.log(tracks)
+function AppRoutes({ auth, errorMessage, loading, registerUser, setAuth }) {
   return (
     <Routes>
       <Route path="/login" element={<LoginPage setAuth={setAuth} />} />
       <Route
         path="/registration"
         element={<RegistrationPage />}
-        registration={registration}
+        registerUser={registerUser}
       />
       <Route path="*" element={<NotFound />} />
 
       <Route element={<ProtectedRoute isAllowed={auth} />}>
         <Route
-          user={user}
           path="/"
-          element={
-            <Container
-              getTracksError={getTracksError}
-              tracks={tracks}
-              loading={loading}
-            />
-          }
+          element={<Container errorMessage={errorMessage} loading={loading} />}
         />
-        <Route
-          path="/playlist/:id"
-          element={
-            <Playlist
-              tracks={tracks}
-              setTracks={setTracks}
-              getTracksError={getTracksError}
-              setGetTracksError={setGetTracksError}
-              loading={loading}
-              setLoading={setLoading}
-            />
-          }
-        />
+        <Route path="/playlist/:id" element={<Playlist />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Route>
     </Routes>
   )

@@ -13,24 +13,23 @@ export async function getTracks() {
 
 // получение избранных треков
 export async function getFavoritesTracks(accessToken) {
-  const response = await fetch(baseURL + "catalog/track/favorite/all/", {
-    method: "GET",
+  const response = await fetch(`${baseURL}/catalog/track/favorite/all/`, {
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
-  })
+  });
 
-  if (!response.ok && !response.status === "400") {
-    throw new Error("Ошибка сервера")
+  if (!response.ok && !response.status === '400') {
+    throw new Error('Ошибка сервера');
   }
 
-  const data = await response.json()
-  return data
+  const data = await response.json();
+  return data;
 }
-
 // Удалить трек в избранное
 export async function deleteTrackInFavorites(accessToken, trackId) {
-  const response = await fetch(`${path}/catalog/track/${trackId}/favorite/`, {
+  const response = await fetch(`${baseURL}/catalog/track/${trackId}/favorite/`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -47,7 +46,7 @@ export async function deleteTrackInFavorites(accessToken, trackId) {
 
 // Добавить трек в избранное
 export async function addTrackInFavorites(accessToken, trackId) {
-  const response = await fetch(`${path}/catalog/track/${trackId}/favorite/`, {
+  const response = await fetch(`${baseURL}/catalog/track/${trackId}/favorite/`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -64,22 +63,22 @@ export async function addTrackInFavorites(accessToken, trackId) {
 
 // Обновить access токен
 export async function getAccessToken(refreshToken) {
-  const response = await fetch(baseURL + "user/token/refresh/", {
-    method: "POST",
+  const response = await fetch(`${baseURL}/user/token/refresh/`, {
+    method: 'POST',
     body: JSON.stringify({
-      refresh: refreshToken,
+      refresh: `${refreshToken}`,
     }),
     headers: {
-      "content-type": "application/json",
+      'content-type': 'application/json',
     },
-  })
+  });
 
-  if (!response.ok && !response.status === "400") {
-    throw new Error("Ошибка сервера")
+  if (!response.ok && !response.status === '400') {
+    throw new Error('Ошибка сервера');
   }
 
-  const data = await response.json()
-  return data
+  const data = await response.json();
+  return data;
 }
 
 // Запрос токенов

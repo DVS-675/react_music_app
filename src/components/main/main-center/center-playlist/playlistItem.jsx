@@ -6,24 +6,17 @@ import classes from "./playlistItem.module.css"
 import Dot from "../../../dot/dot"
 
 import { useDispatch, useSelector } from "react-redux"
-import { useIsPlayingContext } from "../../../../contexts/isPlaying"
-import { setPlayTrack } from "../../../../store/actions/creators/tracks"
 
 export const MainPlaylistItem = ({
-  item,
-  playedTrack,
   isPlaying,
+  item,
   loading,
-  name,
-  author,
-  album,
-  durationInSeconds,
   toggleLike,
-  likesState,
-  setTrackClick,
   id,
+  likesState,
 }) => {
-  const dispatch = useDispatch()
+  const playedTrack = useSelector((store) => store.tracks.playTrack)
+
   const isLike = likesState[id]
 
   return (
@@ -73,25 +66,26 @@ export const MainPlaylistItem = ({
               )}
               <div>
                 <p className={classes.track_link}>
-                  {name} <span className={classes.track_span} />
+                  {item.name} <span className={classes.track_span} />
                 </p>
               </div>
             </div>
             <div className={classes.author}>
-              <p className={classes.author_link}>{author}</p>
+              <p className={classes.author_link}>{item.author}</p>
             </div>
             <div className={classes.album}>
-              <p className={classes.album_link}>{album}</p>
+              <p className={classes.album_link}>{item.album}</p>
             </div>
+
             <div id={id} onClick={(event) => toggleLike(event)}>
               <Like
                 className={
                   isLike ? `${classes.time_svg_active}` : `${classes.time_svg}`
                 }
-                alt="time"
+                alt="like"
               />
               <span className={classes.time_text}>
-                {formatTime(durationInSeconds)}
+                {formatTime(item.duration_in_seconds)}
               </span>
             </div>
           </div>

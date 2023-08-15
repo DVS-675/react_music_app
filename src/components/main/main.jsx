@@ -3,15 +3,11 @@ import { MainCenter } from "./main-center/mainCenter"
 import { MainSidebar } from "./main-sidebar/mainSidebar"
 import classes from "./main.module.css"
 
-export const Main = ({ getTracksError, tracks, loading }) => {
+export const Main = ({ errorMessage, loading }) => {
   return (
     <main className={classes.main}>
       <Nav />
-      <MainCenter
-        getTracksError={getTracksError}
-        tracks={tracks}
-        loading={loading}
-      />
+      <MainCenter errorMessage={errorMessage} loading={loading} />
       <MainSidebar />
     </main>
   )
