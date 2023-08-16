@@ -7,14 +7,13 @@ import { useLoginContext } from "../../contexts/login"
 import { useTokenContext } from "../../contexts/token"
 import logo from "../../img/logo_black.png"
 
-export default function LoginPage() {
-  const navigate = useNavigate()
+export default function LoginPage(setAuth) {
   const [error, setError] = useState(null)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
+  const [errorMessage, setErrorMessage] = useState()
   const [disabled, setDisabled] = useState()
-
+  const navigate = useNavigate()
   const { setCurrentUser } = useUserContext()
   const { toggleLogin } = useLoginContext()
   const { setToken } = useTokenContext()
@@ -22,7 +21,7 @@ export default function LoginPage() {
   const handleLogin = async () => {
     try {
       setDisabled(true)
-      const user = await login({ email, password })
+      const user = await login(email, password)
 
       if (user.detail) {
         setError(user.detail)
@@ -38,7 +37,7 @@ export default function LoginPage() {
       setError(error.message)
     } finally {
       setDisabled(false)
-      const token = await getToken(login, password)
+      const token = await getToken(email, password)
       setToken(token)
       localStorage.setItem("refresh", token.refresh)
     }

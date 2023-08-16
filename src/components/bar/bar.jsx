@@ -21,7 +21,7 @@ export const Bar = ({ loading }) => {
 
   return (
     <>
-      {playTrack.id ? (
+      {playTrack?.id ? (
         <div className={classes.bar}>
           <div className={classes.content}>
             <BarPlayerProgress

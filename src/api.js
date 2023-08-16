@@ -1,7 +1,7 @@
-const baseURL = "https://painassasin.online/"
+const baseURL = "https://painassasin.online"
 
 export async function getTracks() {
-  const response = await fetch(baseURL + "catalog/track/all/")
+  const response = await fetch(baseURL + "/catalog/track/all/")
 
   if (!response.ok) {
     throw new Error("не удалось загрузить плейлист, попробуйте позже")
@@ -14,23 +14,7 @@ export async function getTracks() {
 // получение избранных треков
 export async function getFavoritesTracks(accessToken) {
   const response = await fetch(`${baseURL}/catalog/track/favorite/all/`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-
-  if (!response.ok && !response.status === '400') {
-    throw new Error('Ошибка сервера');
-  }
-
-  const data = await response.json();
-  return data;
-}
-// Удалить трек в избранное
-export async function deleteTrackInFavorites(accessToken, trackId) {
-  const response = await fetch(`${baseURL}/catalog/track/${trackId}/favorite/`, {
-    method: "DELETE",
+    method: "GET",
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -43,15 +27,37 @@ export async function deleteTrackInFavorites(accessToken, trackId) {
   const data = await response.json()
   return data
 }
+// Удалить трек в избранное
+export async function deleteTrackInFavorites(accessToken, trackId) {
+  const response = await fetch(
+    `${baseURL}/catalog/track/${trackId}/favorite/`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  )
+
+  if (!response.ok && !response.status === "400") {
+    throw new Error("Ошибка сервера")
+  }
+
+  const data = await response.json()
+  return data
+}
 
 // Добавить трек в избранное
 export async function addTrackInFavorites(accessToken, trackId) {
-  const response = await fetch(`${baseURL}/catalog/track/${trackId}/favorite/`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  })
+  const response = await fetch(
+    `${baseURL}/catalog/track/${trackId}/favorite/`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  )
 
   if (!response.ok && !response.status === "400") {
     throw new Error("Ошибка сервера")
@@ -64,30 +70,30 @@ export async function addTrackInFavorites(accessToken, trackId) {
 // Обновить access токен
 export async function getAccessToken(refreshToken) {
   const response = await fetch(`${baseURL}/user/token/refresh/`, {
-    method: 'POST',
+    method: "POST",
     body: JSON.stringify({
       refresh: `${refreshToken}`,
     }),
     headers: {
-      'content-type': 'application/json',
+      "content-type": "application/json",
     },
-  });
+  })
 
-  if (!response.ok && !response.status === '400') {
-    throw new Error('Ошибка сервера');
+  if (!response.ok && !response.status === "400") {
+    throw new Error("Ошибка сервера")
   }
 
-  const data = await response.json();
-  return data;
+  const data = await response.json()
+  return data
 }
 
 // Запрос токенов
-export async function getToken(login, password) {
-  const response = await fetch(baseURL + "/user/token/", {
+export async function getToken(email, password) {
+  const response = await fetch(`${baseURL}/user/token/`, {
     method: "POST",
     body: JSON.stringify({
-      email: login,
-      password: password,
+      email: `${email}`,
+      password: `${password}`,
     }),
     headers: {
       "content-type": "application/json",
@@ -101,12 +107,12 @@ export async function getToken(login, password) {
   return data
 }
 
-export async function login({ email, password }) {
-  const response = await fetch(baseURL + "user/login/", {
+export async function login(email, password) {
+  const response = await fetch(`${baseURL}/user/login/`, {
     method: "POST",
     body: JSON.stringify({
-      email: email,
-      password: password,
+      email: `${email}`,
+      password: `${password}`,
     }),
     headers: {
       // API требует обязательного указания заголовка content-type, так апи понимает что мы посылаем ему json строчку в теле запроса
@@ -123,16 +129,16 @@ export async function login({ email, password }) {
   return data
 }
 
-export async function registration({ email, password }) {
+export async function registration(email, password) {
   console.log(email)
   console.log(password)
 
-  const response = await fetch(baseURL + "user/signup/", {
+  const response = await fetch(baseURL + "/user/signup/", {
     method: "POST",
     body: JSON.stringify({
-      email: email,
-      password: password,
-      username: email,
+      email: `${email}`,
+      password: `${password}`,
+      username: `${email}`,
     }),
 
     headers: {

@@ -14,16 +14,15 @@ export const RegistrationPage = () => {
   const [password, setPassword] = useState("")
   const [repeatPassword, setRepeatPassword] = useState("")
   const [disabled, setDisabled] = useState()
-  
 
   const { setCurrentUser } = useUserContext()
   const { toggleLogin } = useLoginContext()
-  const { setToken } = useTokenContext();
+  const { setToken } = useTokenContext()
 
   const handleRegister = async () => {
     try {
       setDisabled(true)
-      const user = await registration({ email, password })
+      const user = await registration(email, password)
       if (user.email) {
         if (user.email !== email) {
           setError(user.email[0])
@@ -46,9 +45,9 @@ export const RegistrationPage = () => {
       setError(error.message)
     } finally {
       setDisabled(false)
-      const token = await getToken(login, password);
-      setToken(token);
-      localStorage.setItem('refresh', token.refresh);
+      const token = await getToken(email, password)
+      setToken(token)
+      localStorage.setItem("refresh", token.refresh)
     }
   }
 

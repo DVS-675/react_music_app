@@ -86,7 +86,7 @@ function App() {
       getNewFavoritesTracks()
     }
   }, [token])
-
+  console.log(token);
   useEffect(() => {
     if (favoritesTracks.length === 0) {
       dispatch(setCurrentPlaylist(allTracks))

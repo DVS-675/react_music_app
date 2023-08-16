@@ -10,11 +10,14 @@ import {
   setCurrentPlaylist,
 } from "../../../store/actions/creators/tracks"
 import { useSwitchPlaylistContext } from "../../../contexts/switchPlaylist"
+import { Nav } from "../../../components/main/nav/nav"
+import { MainCenter } from "../../../components/main/main-center/mainCenter"
 
 export const Favorites = () => {
   const dispatch = useDispatch()
   const favoritesTracks = useSelector((store) => store.tracks.favoritesTracks)
   const { switchPlaylist, setSwitchPlaylist } = useSwitchPlaylistContext()
+  console.log(favoritesTracks)
   useEffect(() => {
     if (favoritesTracks) {
       if (switchPlaylist) {
@@ -26,7 +29,7 @@ export const Favorites = () => {
   }, [favoritesTracks, switchPlaylist])
 
   return (
-    <div className={classes.container}>
+    <div className={classes.container}>      
       <TracksContext.Provider value={favoritesTracks}>
         <MainContent />
       </TracksContext.Provider>

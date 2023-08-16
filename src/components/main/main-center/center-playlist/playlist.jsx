@@ -30,7 +30,6 @@ export const MainPlaylist = ({ errorMessage, loading }) => {
   const tracksIds = useSelector((store) => store.tracks.tracksIds)
   const likesState = useSelector((store) => store.tracks.likesState)
   const initialState = {}
-  const { isPlaying, toggleIsPlaying } = useIsPlayingContext()
 
   const user = localStorage.getItem("user")
   const { setSwitchPlaylist } = useSwitchPlaylistContext()
@@ -54,9 +53,10 @@ export const MainPlaylist = ({ errorMessage, loading }) => {
 
   const toggleLike = async (event) => {
     const { id } = event.currentTarget
+    console.log(id)
     const value = likesState[id]
     const newLikesState = { ...likesState }
-
+    console.log(token)
     const newFavorites = async () => {
       await addTrackInFavorites(token?.access, id)
       const newFavoritesTracks = createFavorites(await getNewAllTracks(), user)
@@ -93,35 +93,17 @@ export const MainPlaylist = ({ errorMessage, loading }) => {
 
   const elements =
     tracks && tracks.length > 0
-      ? tracks.map((item) => {
-          return (
-            <div
-              onClick={() => {
-                dispatch(setPlayTrack(item))
-                toggleIsPlaying(true)
-                setTrackClick(true)
-              }}
-              role="button"
-              tabIndex={0}
-              key={item.id}
-              onKeyDown={() => {
-                dispatch(setPlayTrack(item))
-                toggleIsPlaying(true)
-                setTrackClick(true)
-              }}
-            >
-              <MainPlaylistItem
-                isPlaying={isPlaying}
-                item={item}
-                key={item.id || Math.random(5)}
-                loading={loading}
-                toggleLike={toggleLike}
-                likesState={likesState}
-                setTrackClick={setTrackClick}
-              />
-            </div>
-          )
-        })
+      ? tracks.map((item) => (
+          <MainPlaylistItem
+            item={item}
+            key={item.id || Math.random(5)}
+            loading={loading}
+            toggleLike={toggleLike}
+            likesState={likesState}
+            setTrackClick={setTrackClick}
+            id={item.id}
+          />
+        ))
       : null
 
   return (
