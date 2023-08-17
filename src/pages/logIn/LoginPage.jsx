@@ -1,26 +1,27 @@
 import { Link, useNavigate } from "react-router-dom"
 import * as S from "./LoginPage.styles"
 import { useEffect, useState } from "react"
-import { login } from "../../api"
+import { login, getToken } from "../../api"
 import { useUserContext } from "../../contexts/user"
 import { useLoginContext } from "../../contexts/login"
+import { useTokenContext } from "../../contexts/token"
 import logo from "../../img/logo_black.png"
 
-export default function LoginPage() {
-  const navigate = useNavigate()
+export default function LoginPage(setAuth) {
   const [error, setError] = useState(null)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
+  const [errorMessage, setErrorMessage] = useState()
   const [disabled, setDisabled] = useState()
-
+  const navigate = useNavigate()
   const { setCurrentUser } = useUserContext()
   const { toggleLogin } = useLoginContext()
+  const { setToken } = useTokenContext()
 
   const handleLogin = async () => {
     try {
       setDisabled(true)
-      const user = await login({ email, password })
+      const user = await login(email, password)
 
       if (user.detail) {
         setError(user.detail)
@@ -36,6 +37,9 @@ export default function LoginPage() {
       setError(error.message)
     } finally {
       setDisabled(false)
+      const token = await getToken(email, password)
+      setToken(token)
+      localStorage.setItem("refresh", token.refresh)
     }
   }
 

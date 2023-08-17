@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom"
 import * as S from "./RegistrationPage.styles"
 import { useEffect, useState } from "react"
-import { registration } from "../../api"
+import { registration, getToken } from "../../api"
 import { useUserContext } from "../../contexts/user"
 import { useLoginContext } from "../../contexts/login"
+import { useTokenContext } from "../../contexts/token"
 import logo from "../../img/logo_black.png"
 
 export const RegistrationPage = () => {
@@ -16,11 +17,12 @@ export const RegistrationPage = () => {
 
   const { setCurrentUser } = useUserContext()
   const { toggleLogin } = useLoginContext()
+  const { setToken } = useTokenContext()
 
   const handleRegister = async () => {
     try {
       setDisabled(true)
-      const user = await registration({ email, password })
+      const user = await registration(email, password)
       if (user.email) {
         if (user.email !== email) {
           setError(user.email[0])
@@ -43,6 +45,9 @@ export const RegistrationPage = () => {
       setError(error.message)
     } finally {
       setDisabled(false)
+      const token = await getToken(email, password)
+      setToken(token)
+      localStorage.setItem("refresh", token.refresh)
     }
   }
 

@@ -5,17 +5,23 @@ import formatTime from "../../../../utils/utils"
 import classes from "./playlistItem.module.css"
 import Dot from "../../../dot/dot"
 
+import { useDispatch, useSelector } from "react-redux"
+import { useIsPlayingContext } from "../../../../contexts/isPlaying"
+import { setPlayTrack } from "../../../../store/actions/creators/tracks"
+
 export const MainPlaylistItem = ({
   item,
-  playedTrack,
-  isPlaying,
   loading,
-  name,
-  author,
-  album,
-  durationInSeconds,
+  toggleLike,
+  id,
+  likesState,
+  setTrackClick,
 }) => {
-  console.log(playedTrack)
+  const playedTrack = useSelector((store) => store.tracks.playTrack)
+  const { isPlaying, toggleIsPlaying } = useIsPlayingContext()
+  const isLike = likesState[id]
+  console.log(isLike)
+  const dispatch = useDispatch()
   return (
     <div>
       {loading ? (
@@ -49,35 +55,59 @@ export const MainPlaylistItem = ({
           </div>
         </div>
       ) : (
-        <div className={classes.item}>
-          <div className={classes.track}>
-            <div className={classes.track_title}>
-              {playedTrack && playedTrack.id === item.id ? (
-                <div className={classes.track_image}>
-                  <Dot isPlaying={isPlaying} />
+        <div
+          onClick={() => {
+            dispatch(setPlayTrack(item))
+            toggleIsPlaying(true)
+            setTrackClick(true)
+          }}
+          role="button"
+          tabIndex={0}
+          key={item.id}
+          onKeyDown={() => {
+            dispatch(setPlayTrack(item))
+            toggleIsPlaying(true)
+            setTrackClick(true)
+          }}
+        >
+          <div className={classes.item} onClick={(e) => e.preventDefault}>
+            <div className={classes.track}>
+              <div className={classes.track_title}>
+                {playedTrack && playedTrack.id === item.id ? (
+                  <div className={classes.track_image}>
+                    <Dot isPlaying={isPlaying} />
+                  </div>
+                ) : (
+                  <div className={classes.track_image}>
+                    <Note className={classes.track_svg} alt="music" />
+                  </div>
+                )}
+                <div>
+                  <p className={classes.track_link}>
+                    {item.name} <span className={classes.track_span} />
+                  </p>
                 </div>
-              ) : (
-                <div className={classes.track_image}>
-                  <Note className={classes.track_svg} alt="music" />
-                </div>
-              )}
-              <div>
-                <p className={classes.track_link}>
-                  {name} <span className={classes.track_span} />
-                </p>
               </div>
-            </div>
-            <div className={classes.author}>
-              <p className={classes.author_link}>{author}</p>
-            </div>
-            <div className={classes.album}>
-              <p className={classes.album_link}>{album}</p>
-            </div>
-            <div>
-              <Like className={classes.time_svg} alt="time" />
-              <span className={classes.time_text}>
-                {formatTime(durationInSeconds)}
-              </span>
+              <div className={classes.author}>
+                <p className={classes.author_link}>{item.author}</p>
+              </div>
+              <div className={classes.album}>
+                <p className={classes.album_link}>{item.album}</p>
+              </div>
+
+              <div id={id} onClick={(event) => toggleLike(event)}>
+                <Like
+                  className={
+                    isLike
+                      ? `${classes.time_svg_active}`
+                      : `${classes.time_svg}`
+                  }
+                  alt="like"
+                />
+                <span className={classes.time_text}>
+                  {formatTime(item.duration_in_seconds)}
+                </span>
+              </div>
             </div>
           </div>
         </div>

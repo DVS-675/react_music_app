@@ -53,7 +53,7 @@ export const Nav = () => {
               </Link>
             </li>
             <li className={classes.menu_item}>
-              <Link className={classes.menu_link} to="/playlist/4">
+              <Link className={classes.menu_link} to="/favorites">
                 Мои треки
               </Link>
             </li>

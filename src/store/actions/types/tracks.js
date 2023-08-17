@@ -1,3 +1,5 @@
-export const SET_TRACKS = 'SET_TRACKS';
 export const SET_PLAY_TRACK = 'SET_PLAY_TRACK';
 export const TRACKS_IDS = 'TRACKS_IDS';
+export const FAVORITES_TRACKS = 'FAVORITES_TRACKS';
+export const SET_LIKES_STATE = 'SET_LIKES_STATE';
+export const CURRENT_PLAYLIST = 'CURRENT_PLAYLIST';

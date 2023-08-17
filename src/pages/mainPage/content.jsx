@@ -1,42 +1,35 @@
 import { Bar } from "../../components/bar/bar"
 import { Main } from "../../components/main/main"
 import classes from "./content.module.css"
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import {tracksAllSelector} from "../../store/selectors/tracks";
-import {setPlayTrack} from "../../store/actions/creators/tracks";
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
 
-export const Container = ({
-  setCurrentTrack,
-  currentTrack,
-  getTracksError,
-  tracks,
-  loading
-}) => {
+import {
+  setTracksIds,
+  setCurrentPlaylist,
+} from "../../store/actions/creators/tracks"
+import { useGetAllTracksQuery } from "../../services/tracks"
+import { useSwitchPlaylistContext } from "../../contexts/switchPlaylist"
 
-  const dispatch = useDispatch();
-  const allTracks = useSelector(tracksAllSelector);
-  console.log(currentTrack)
-
+export const Container = ({ errorMessage, loading }) => {
+  const allTracks = useGetAllTracksQuery().data
+  console.log(allTracks)
+  const { switchPlaylist, setSwitchPlaylist } = useSwitchPlaylistContext()
+  const dispatch = useDispatch()
   useEffect(() => {
-    if (allTracks.length > 0 && currentTrack) {
-      for (let i = 0; i < allTracks?.length; i += 1) {
-
-        if (allTracks[i].id === currentTrack.id) {
-
-          dispatch(setPlayTrack(allTracks[i]));
-        }
+    if (allTracks) {
+      if (switchPlaylist) {
+        dispatch(setCurrentPlaylist(allTracks))
+        dispatch(setTracksIds(allTracks.map((trackData) => trackData.id)))
+        setSwitchPlaylist(false)
       }
     }
-  }, [allTracks, currentTrack]);
+  }, [switchPlaylist])
 
   return (
     <div className={classes.container}>
-      <Main setCurrentTrack={setCurrentTrack} getTracksError={getTracksError} tracks={tracks} loading={loading} />
-      <Bar
-        currentTrack={currentTrack}
-        loading={loading}
-      />
+      <Main errorMessage={errorMessage} loading={loading} />
+      <Bar loading={loading} />
       <footer />
     </div>
   )
