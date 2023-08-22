@@ -16,6 +16,7 @@ import {
   deleteTrackInFavorites,
   addTrackInFavorites,
   getTracks,
+  getFavoritesTracks,
 } from "../../../../api"
 import { useSwitchPlaylistContext } from "../../../../contexts/switchPlaylist"
 import { createFavorites } from "../../../../utils/playerHelpers"
@@ -34,11 +35,6 @@ export const MainPlaylist = ({ errorMessage, loading }) => {
   const user = localStorage.getItem("user")
   const { setSwitchPlaylist } = useSwitchPlaylistContext()
 
-  const getNewAllTracks = async () => {
-    const allTracks = await getTracks()
-    console.log(allTracks)
-  }
-
   useEffect(() => {
     if (trackClick) {
       setSwitchPlaylist(true)
@@ -51,29 +47,31 @@ export const MainPlaylist = ({ errorMessage, loading }) => {
   const tracks = useTracksContext()
   console.log(tracks)
 
+  const getNewFavoritesTracks = async () => {
+    dispatch(setFavoritesTracks(await getFavoritesTracks(token.access)))
+  }
+
   const toggleLike = async (event) => {
     const { id } = event.currentTarget
-    console.log(id)
     const value = likesState[id]
     const newLikesState = { ...likesState }
-    console.log(token)
-    const newFavorites = async () => {
-      await addTrackInFavorites(token?.access, id)
-      const newFavoritesTracks = createFavorites(await getNewAllTracks(), user)
-      console.log("new", newFavoritesTracks)
-      if (newFavoritesTracks) {
-        dispatch(setFavoritesTracks(newFavoritesTracks))
-      }
-    }
 
     if (value) {
       newLikesState[id] = false
       await deleteTrackInFavorites(token?.access, id)
-      await newFavorites()
+
+      if (token?.access) {
+        await getNewFavoritesTracks()
+      }
     } else {
       newLikesState[id] = true
-      await newFavorites()
+      await addTrackInFavorites(token?.access, id)
+
+      if (token?.access) {
+        await getNewFavoritesTracks()
+      }
     }
+
     dispatch(setLikesState(newLikesState))
   }
 
