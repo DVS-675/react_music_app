@@ -18,6 +18,7 @@ export const Favorites = () => {
   const favoritesTracks = useSelector((store) => store.tracks.favoritesTracks)
   const { switchPlaylist, setSwitchPlaylist } = useSwitchPlaylistContext()
   console.log(favoritesTracks)
+  let title = "Мои треки"
   useEffect(() => {
     if (favoritesTracks) {
       if (switchPlaylist) {
@@ -29,9 +30,9 @@ export const Favorites = () => {
   }, [favoritesTracks, switchPlaylist])
 
   return (
-    <div className={classes.container}>      
+    <div className={classes.container}>
       <TracksContext.Provider value={favoritesTracks}>
-        <MainContent />
+        <MainContent title={title} />
       </TracksContext.Provider>
       <Bar />
       <footer />

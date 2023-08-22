@@ -20,7 +20,7 @@ export const MainPlaylistItem = ({
   const playedTrack = useSelector((store) => store.tracks.playTrack)
   const { isPlaying, toggleIsPlaying } = useIsPlayingContext()
   const isLike = likesState[id]
-  console.log(isLike)
+  
   const dispatch = useDispatch()
   return (
     <div>

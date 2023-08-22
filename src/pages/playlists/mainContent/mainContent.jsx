@@ -6,7 +6,7 @@ import classes from "./mainContent.module.css"
 import { MainPlaylist } from "../../../components/main/main-center/center-playlist/playlist"
 import { MainSidebar } from "../../../components/main/main-sidebar/mainSidebar"
 
-export const MainContent = ({ loading, errorMessage }) => {
+export const MainContent = ({ loading, errorMessage, title }) => {
   return (
     <main className={classes.main}>
       <Nav />
@@ -20,7 +20,7 @@ export const MainContent = ({ loading, errorMessage }) => {
             name="search"
           />
         </div>
-        <h2 className={classes.title}>Треки</h2>
+        <h2 className={classes.title}>{title}</h2>
 
         <div className={classes.center_content}>
           <CenterHeader loading={loading} />
