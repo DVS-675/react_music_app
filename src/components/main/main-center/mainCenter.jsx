@@ -7,7 +7,8 @@ import { CenterHeader } from "./center-header/centerHeader"
 
 import { useTracksContext } from "../../../contexts/tracks"
 import { createFilterList } from "../../../utils/filter"
-import { FilterMain } from "./center-filter/filterMain"
+
+import Filter from "./center-filter/filter/filter.jsx"
 
 export const MainCenter = ({ errorMessage, loading }) => {
   const [visibleFilter, setVisibleFilter] = useState(null)
@@ -90,10 +91,10 @@ export const MainCenter = ({ errorMessage, loading }) => {
         />
       </div>
       <h2 className={classes.title}>Треки</h2>
-      <FilterMain
-        toggleVisibleFilter={toggleVisibleFilter}
-        visibleFilter={visibleFilter}
-        tracks={tracks}
+      <Filter
+        getFilterValue={getFilterValue}
+        filterValues={filterValues}
+        setButtonId={setButtonId}
       />
       <div className={classes.center_content}>
         <CenterHeader loading={loading} />
