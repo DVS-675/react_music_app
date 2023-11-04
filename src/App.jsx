@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { LoginContext } from "./contexts/login"
 import { UserContext } from "./contexts/user"
 import { IsPlayingContext } from "./contexts/isPlaying"
-import { registration, getAccessToken, getFavoritesTracks } from "./api"
+import { registration, getAccessToken } from "./api"
 import { TokenContext } from "./contexts/token"
 import { SwitchPlaylistContext } from "./contexts/switchPlaylist"
 import { useGetAllTracksQuery } from "./services/tracks"
@@ -15,7 +15,6 @@ import {
   setTracksIds,
   setFavoritesTracks,
   setPlayTrack,
-  setCurrentPlaylist,
 } from "./store/actions/creators/tracks"
 import { createFavorites } from "./utils/playerHelpers"
 
@@ -28,13 +27,9 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false)
   const [intervalId, setIntervalId] = useState(null)
   const { error, isLoading } = useGetAllTracksQuery()
-  const favoritesTracks = useSelector((store) => store.tracks.favoritesTracks)
   const allTracks = useGetAllTracksQuery().data
   const [playlist, setPlaylist] = useState()
-  const playTrack = useSelector((store) => store.tracks.playTrack)
   const currentPlaylist = useSelector((store) => store.tracks.currentPlaylist)
-
-  const [loading, setLoading] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -78,34 +73,15 @@ function App() {
     if (!token?.access && refresh) {
       setTokenAfterUnload()
     }
-    const getNewFavoritesTracks = async () => {
-      dispatch(setFavoritesTracks(await getFavoritesTracks(token.access)))
-    }
-
-    if (token?.access) {
-      getNewFavoritesTracks()
-    }
   }, [token])
-  console.log(token);
-  useEffect(() => {
-    if (favoritesTracks.length === 0) {
-      dispatch(setCurrentPlaylist(allTracks))
-      setPlaylist(allTracks)
-      dispatch(setTracksIds(allTracks?.map((trackData) => trackData.id)))
-    }
-  }, [favoritesTracks])
 
   useEffect(() => {
-    dispatch(setFavoritesTracks(createFavorites(allTracks, user)))
-  }, [user])
-
-  useEffect(() => {
+    dispatch(setTracksIds(allTracks?.map((trackData) => trackData?.id)))
     if (allTracks) {
-      dispatch(setTracksIds(allTracks.map((trackData) => trackData.id)))
+      dispatch(setFavoritesTracks(createFavorites(allTracks, user)))
+      setPlaylist(allTracks)
     }
-    dispatch(setCurrentPlaylist(allTracks))
-    setPlaylist(allTracks)
-  }, [allTracks])
+  }, [user, allTracks])
 
   useEffect(() => {
     if (auth && refresh) {

@@ -1,8 +1,19 @@
-
 import { AuthorItem } from "./items/authorItem"
 import classes from "./filter.module.css"
 
-export const FilterAuthor = ({ tracks }) => {
+export const FilterAuthor = ({
+  toggleButton,
+  dropdownList,
+  text,
+  id,
+  buttonsState,
+  getFilterValue,
+  filterValues,
+}) => {
+  if (buttonsState) {
+    setVisible(buttonsState[id])
+  }
+
   const elements = tracks.map((item) => {
     return (
       <div key={item.id}>
@@ -17,5 +28,3 @@ export const FilterAuthor = ({ tracks }) => {
     </div>
   )
 }
-
-

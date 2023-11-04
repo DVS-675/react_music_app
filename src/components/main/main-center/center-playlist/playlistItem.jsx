@@ -13,14 +13,13 @@ export const MainPlaylistItem = ({
   item,
   loading,
   toggleLike,
-  id,
   likesState,
   setTrackClick,
 }) => {
   const playedTrack = useSelector((store) => store.tracks.playTrack)
   const { isPlaying, toggleIsPlaying } = useIsPlayingContext()
-  const isLike = likesState[id]
-  console.log(isLike)
+  const isLike = likesState[item?.id]
+
   const dispatch = useDispatch()
   return (
     <div>
@@ -95,7 +94,7 @@ export const MainPlaylistItem = ({
                 <p className={classes.album_link}>{item.album}</p>
               </div>
 
-              <div id={id} onClick={(event) => toggleLike(event)}>
+              <div id={item?.id} onClick={(event) => toggleLike(event)}>
                 <Like
                   className={
                     isLike

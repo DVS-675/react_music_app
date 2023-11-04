@@ -2,9 +2,13 @@ import formatTime from "../../../utils/utils"
 import * as S from "./styles"
 import { useEffect } from "react"
 
-export const BarPlayerProgress = ({ currentTime,setCurrentTime,audioRef }) => {
-  
-  let duration = 0
+export const BarPlayerProgress = ({
+  duration,
+  currentTime,
+  setCurrentTime,
+  audioRef,
+  setCurrentTimeUser,
+}) => {
   if (audioRef.current?.duration) {
     duration = audioRef.current.duration
   }
@@ -31,9 +35,9 @@ export const BarPlayerProgress = ({ currentTime,setCurrentTime,audioRef }) => {
         max={duration}
         value={currentTime}
         step={0.01}
-        onChange={(event) =>
-          (audioRef.current.currentTime = event.target.value)
-        }
+        onChange={(event) => {
+          setCurrentTimeUser(event.target.value)
+        }}
       />
       <S.Duration>
         {formatTime(Math.floor(currentTime))}/{formatTime(Math.floor(duration))}

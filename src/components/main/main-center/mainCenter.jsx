@@ -1,25 +1,81 @@
 import { useState, useEffect } from "react"
 import { ReactComponent as Search } from "../../../img/icon/search.svg"
 import { MainPlaylist } from "./center-playlist/playlist"
-import { FilterAuthor } from "./center-filter/filterAuthor"
-import { FilterYear } from "./center-filter/filterYear"
-import { FilterGenre } from "./center-filter/filterGenre"
+
 import classes from "./mainCenter.module.css"
 import { CenterHeader } from "./center-header/centerHeader"
-import { getTracks } from "../../../api"
+
+import { useTracksContext } from "../../../contexts/tracks"
+import { createFilterList } from "../../../utils/filter"
+
+import Filter from "./center-filter/filter/filter.jsx"
 
 export const MainCenter = ({ errorMessage, loading }) => {
   const [visibleFilter, setVisibleFilter] = useState(null)
-  const [tracks, setTracks] = useState([])
+  const tracks = useTracksContext()
 
-  useEffect(() => {
-    getTracks().then((tracks) => {
-      setTracks(tracks)
-    })
-  }, [])
+  const [buttonId, setButtonId] = useState()
+  const [filterValues, setFilterValues] = useState({
+    genre: [],
+    name: [],
+    date: [],
+  })
 
   const toggleVisibleFilter = (filter) => {
     setVisibleFilter(visibleFilter === filter ? null : filter)
+  }
+
+  const [searchValue, setSearchValue] = useState()
+
+  function detectedFilter(value, values, arr, id) {
+    if (id === 0) {
+      for (let i = 0; i < arr?.length; i += 1) {
+        if (!values.name.includes(value)) {
+          values.name.push(value)
+        } else {
+          const index = values.name.indexOf(value)
+          values.name.splice(index, 1)
+        }
+      }
+    } else if (id === 1) {
+      values.date.splice(0, values.date.length)
+      values.date.push(value)
+    } else if (id === 2) {
+      for (let i = 0; i < arr?.length; i += 1) {
+        if (!values.genre.includes(value)) {
+          values.genre.push(value)
+        } else {
+          const index = values.genre.indexOf(value)
+          values.genre.splice(index, 1)
+        }
+      }
+    }
+  }
+
+  const getSearchValue = (e) => {
+    setSearchValue(e.target.value)
+  }
+
+  // Добавление фильтров
+  const getFilterValue = (e) => {
+    const values = { ...filterValues }
+
+    let filterList
+    if (buttonId === 0 || buttonId === 2) {
+      filterList = createFilterList(tracks, buttonId)
+    } else {
+      filterList = [e.target.name]
+    }
+
+    if (tracks) {
+      if (buttonId === 0 || buttonId === 2) {
+        detectedFilter(e.target.textContent, values, filterList, buttonId)
+      } else {
+        detectedFilter(e.target.name, values, filterList, buttonId)
+      }
+
+      setFilterValues(values)
+    }
   }
 
   return (
@@ -31,62 +87,23 @@ export const MainCenter = ({ errorMessage, loading }) => {
           type="search"
           placeholder="Поиск"
           name="search"
+          onInput={(event) => getSearchValue(event)}
         />
       </div>
       <h2 className={classes.title}>Треки</h2>
-      <div className={classes.filter}>
-        <p className={classes.filter_title}>Искать по:</p>
-        <div className={classes.filter_item}>
-          <button
-            onClick={() => {
-              toggleVisibleFilter("author")
-            }}
-            value="author"
-            type="button"
-            className={
-              visibleFilter === "author"
-                ? `${classes.filter_button} ${classes.btn_text} ${classes.button_active}`
-                : `${classes.filter_button} ${classes.btn_text}`
-            }
-          >
-            исполнителю
-          </button>
-          {visibleFilter === "author" && <FilterAuthor tracks={tracks} />}
-        </div>
-        <div className={classes.filter_item}>
-          <button
-            onClick={() => toggleVisibleFilter("year")}
-            type="button"
-            value="year"
-            className={
-              visibleFilter === "year"
-                ? `${classes.filter_button} ${classes.btn_text} ${classes.button_active}`
-                : `${classes.filter_button} ${classes.btn_text}`
-            }
-          >
-            году выпуска
-          </button>
-          {visibleFilter === "year" && <FilterYear tracks={tracks} />}
-        </div>
-        <div className={classes.filter_item}>
-          <button
-            onClick={() => toggleVisibleFilter("genre")}
-            type="button"
-            value="genre"
-            className={
-              visibleFilter === "genre"
-                ? `${classes.filter_button} ${classes.btn_text} ${classes.button_active}`
-                : `${classes.filter_button} ${classes.btn_text}`
-            }
-          >
-            жанру
-          </button>
-          {visibleFilter === "genre" && <FilterGenre tracks={tracks} />}
-        </div>
-      </div>
+      <Filter
+        getFilterValue={getFilterValue}
+        filterValues={filterValues}
+        setButtonId={setButtonId}
+      />
       <div className={classes.center_content}>
         <CenterHeader loading={loading} />
-        <MainPlaylist errorMessage={errorMessage} loading={loading} />
+        <MainPlaylist
+          searchValue={searchValue}
+          filterValues={filterValues}
+          errorMessage={errorMessage}
+          loading={loading}
+        />
       </div>
     </div>
   )

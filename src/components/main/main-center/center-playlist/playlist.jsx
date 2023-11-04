@@ -1,43 +1,51 @@
 import { MainPlaylistItem } from "./playlistItem"
 import classes from "./playlist.module.css"
-import { setPlayTrack } from "../../../../store/actions/creators/tracks"
 import { useDispatch, useSelector } from "react-redux"
-
-import { useIsPlayingContext } from "../../../../contexts/isPlaying"
 import { useEffect, useState } from "react"
 import { useTracksContext } from "../../../../contexts/tracks"
 import {
   setLikesState,
-  setFavoritesTracks,
+  setCurrentPlaylist,
 } from "../../../../store/actions/creators/tracks"
 import { useTokenContext } from "../../../../contexts/token"
 
-import {
-  deleteTrackInFavorites,
-  addTrackInFavorites,
-  getTracks,
-} from "../../../../api"
-import { useSwitchPlaylistContext } from "../../../../contexts/switchPlaylist"
 import { createFavorites } from "../../../../utils/playerHelpers"
+import {
+  useGetAllTracksQuery,
+  useLikeTrackMutation,
+  useDislikeTrackMutation,
+} from "../../../../services/tracks"
 
-export const MainPlaylist = ({ errorMessage, loading }) => {
+import {
+  getFilterByDate,
+  getSearchingTracks,
+  getFilteredTracks,
+  getCombineFilteredTracks,
+} from "../../../../utils/filter"
+import { useSwitchPlaylistContext } from "../../../../contexts/switchPlaylist"
+
+export const MainPlaylist = ({
+  errorMessage,
+  loading,
+  searchValue,
+  filterValues,
+}) => {
   const dispatch = useDispatch()
   const { token } = useTokenContext()
   const [trackClick, setTrackClick] = useState(false)
   const favoritesTracks = useSelector((store) => store.tracks.favoritesTracks)
-  console.log(token)
-  const favoritesIds = favoritesTracks.map((favoriteTrack) => favoriteTrack.id)
+
+  const favoritesIds = favoritesTracks?.map((favoriteTrack) => favoriteTrack.id)
   const tracksIds = useSelector((store) => store.tracks.tracksIds)
   const likesState = useSelector((store) => store.tracks.likesState)
   const initialState = {}
+  const allTracks = useGetAllTracksQuery().data
+  const tracks = useTracksContext()
 
-  const user = localStorage.getItem("user")
   const { setSwitchPlaylist } = useSwitchPlaylistContext()
 
-  const getNewAllTracks = async () => {
-    const allTracks = await getTracks()
-    console.log(allTracks)
-  }
+  const [likeTrigger] = useLikeTrackMutation()
+  const [dislikeTrigger] = useDislikeTrackMutation()
 
   useEffect(() => {
     if (trackClick) {
@@ -46,33 +54,22 @@ export const MainPlaylist = ({ errorMessage, loading }) => {
     } else {
       setTrackClick(false)
     }
+    dispatch(setCurrentPlaylist(allTracks))
   }, [trackClick])
-
-  const tracks = useTracksContext()
-  console.log(tracks)
 
   const toggleLike = async (event) => {
     const { id } = event.currentTarget
-    console.log(id)
-    const value = likesState[id]
+    const trackState = likesState[id]
     const newLikesState = { ...likesState }
-    console.log(token)
-    const newFavorites = async () => {
-      await addTrackInFavorites(token?.access, id)
-      const newFavoritesTracks = createFavorites(await getNewAllTracks(), user)
-      console.log("new", newFavoritesTracks)
-      if (newFavoritesTracks) {
-        dispatch(setFavoritesTracks(newFavoritesTracks))
-      }
-    }
+    const { access } = token
+    const args = { id, token: access }
 
-    if (value) {
+    if (trackState) {
       newLikesState[id] = false
-      await deleteTrackInFavorites(token?.access, id)
-      await newFavorites()
+      await dislikeTrigger(args)
     } else {
       newLikesState[id] = true
-      await newFavorites()
+      await likeTrigger(args)
     }
     dispatch(setLikesState(newLikesState))
   }
@@ -91,25 +88,72 @@ export const MainPlaylist = ({ errorMessage, loading }) => {
     dispatch(setLikesState(initialState))
   }, [favoritesTracks])
 
-  const elements =
-    tracks && tracks.length > 0
-      ? tracks.map((item) => (
-          <MainPlaylistItem
-            item={item}
-            key={item.id || Math.random(5)}
-            loading={loading}
-            toggleLike={toggleLike}
-            likesState={likesState}
-            setTrackClick={setTrackClick}
-            id={item.id}
-          />
-        ))
-      : null
+  const filterList = () => {
+    let list = tracks
+    if (searchValue) {
+      list =
+        list && list.length > 0 ? getSearchingTracks(list, searchValue) : null
+    }
+    if (filterValues?.genre.length > 0 || filterValues?.name.length > 0) {
+      let filteringTrack
+
+      if (filterValues?.name.length > 0 && filterValues?.genre.length > 0) {
+        filteringTrack =
+          list && list.length > 0
+            ? getCombineFilteredTracks(list, filterValues)
+            : null
+      } else if (filterValues.name.length > 0) {
+        filteringTrack =
+          list && list.length > 0
+            ? getFilteredTracks(list, filterValues.name)
+            : null
+      } else if (filterValues?.genre.length > 0) {
+        filteringTrack =
+          list && list.length > 0
+            ? getFilteredTracks(list, filterValues?.genre)
+            : null
+      }
+
+      list = filteringTrack
+    }
+    if (filterValues?.date.length > 0) {
+      list =
+        list && list.length > 0
+          ? getFilterByDate(list, filterValues.date)
+          : null
+    }
+
+    return list
+  }
+
+  const filteredList = filterList()
 
   return (
     <>
-      {errorMessage ? "не удалось загрузить плейлист, попробуйте позже" : null}
-      {loading ? "loading" : <div className={classes.playlist}>{elements}</div>}
+      {loading ? (
+        "loading"
+      ) : (
+        <div className={classes.playlist}>
+          {errorMessage || tracks?.length > 0 ? (
+            filteredList?.length > 0 ? (
+              filteredList.map((item) => (
+                <MainPlaylistItem
+                  item={item}
+                  key={Math.random(40) || Math.random(5)}
+                  loading={loading}
+                  toggleLike={toggleLike}
+                  likesState={likesState}
+                  setTrackClick={setTrackClick}
+                />
+              ))
+            ) : (
+              <h2>Ничего не найдено</h2>
+            )
+          ) : (
+            ""
+          )}
+        </div>
+      )}
     </>
   )
 }
