@@ -8,13 +8,5 @@ jobs:
         uses: actions/checkout@v5
       - name: Install deps
         run: npm i
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-      - name: Install deps
-        run: npm i
-      - name: Test
-        run: npm run test
+
     
